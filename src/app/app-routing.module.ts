@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import {PercentCalculationComponent} from './percent-calculation/percent-calculation.component';
 
 const routes: Routes = [
-  {path: 'percent-calculation', component: PercentCalculationComponent}
+  {path: 'percent-calculation', component: PercentCalculationComponent},
+  {path: '**', redirectTo: 'percent-calculation'}
 ];
 
 @NgModule({
