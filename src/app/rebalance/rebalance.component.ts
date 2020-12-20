@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormArray, FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'app-rebalance',
@@ -7,9 +8,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RebalanceComponent implements OnInit {
 
-  constructor() { }
+  public tickersForm: FormArray = this.fb.array(
+    [],
+  );
 
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder) { }
+
+  public ngOnInit() {
+  }
+
+  public addTicker = () => {
+    this.tickersForm.push(this.fb.group({
+      name: [null],
+      weight: [null],
+      currentAmount: [null],
+      currentPrice: [null],
+    }));
+  }
+
+  public removeTicker = (index: number) => {
+    this.tickersForm.removeAt(index);
+  }
+
+  public rebalance = () => {
+
+  }
+
+  public applyResults = () => {
+
+  }
+
+  public save = () => {
+
+  }
+
+  public reset = () => {
+
   }
 
 }
