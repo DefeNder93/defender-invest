@@ -3,21 +3,29 @@ import { CommonModule } from '@angular/common';
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
-const MATERIAL_COMPONENTS = [
+const MATERIAL_MODULES = [
   MatInputModule,
   MatIconModule,
   MatFormFieldModule
 ];
 
+const COMMON_MODULES = [
+  FormsModule,
+  ReactiveFormsModule,
+  CommonModule
+];
+
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
-    MATERIAL_COMPONENTS
+    ...COMMON_MODULES,
+    ...MATERIAL_MODULES
   ],
   exports: [
-    MATERIAL_COMPONENTS
+    ...COMMON_MODULES,
+    ...MATERIAL_MODULES
   ]
 })
 export class SharedModule { }
