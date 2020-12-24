@@ -29,6 +29,4 @@ export class PercentCalculationComponent implements OnInit {
   ngOnInit() {
   }
 
-  // Math.pow(base, exponent)
-
 }
