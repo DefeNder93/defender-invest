@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {debounceTime, map, startWith} from "rxjs/operators";
+import {Observable} from "rxjs";
+import {PercentCalculationService} from "./percent-calculation.service";
 
 @Component({
   selector: 'app-percent-calculation',
@@ -7,9 +11,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PercentCalculationComponent implements OnInit {
 
-  constructor() { }
+  public form: FormGroup = this.fb.group({
+    from: [null],
+    to: [null],
+    totalPercent: [null]
+  });
 
-  ngOnInit(): void {
+  public yearlyIncome$: Observable<string> = this.form.valueChanges.pipe(
+    debounceTime(300),
+    map(({from, to, totalPercent}) => this.percentCalculationService.calculateYearlyIncome(from, to, totalPercent)),
+    map((value) => value === null ? '-' : value + ''),
+    startWith('-')
+  );
+
+  constructor(private fb: FormBuilder, private percentCalculationService: PercentCalculationService) { }
+
+  ngOnInit() {
   }
+
+  // Math.pow(base, exponent)
 
 }

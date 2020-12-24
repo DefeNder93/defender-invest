@@ -1,1 +1,19 @@
-<p>percent-calculation works!</p>
+<div [formGroup]="form">
+  <mat-form-field class="example-form-field">
+    <mat-label>From</mat-label>
+    <input formControlName="from" matInput type="date">
+  </mat-form-field>
+
+  <mat-form-field class="example-form-field">
+    <mat-label>To</mat-label>
+    <input formControlName="to" matInput type="date">
+  </mat-form-field>
+
+  <mat-form-field class="example-form-field">
+    <mat-label>Total Percent</mat-label>
+    <input formControlName="totalPercent" matInput type="number">
+  </mat-form-field>
+
+  Yearly Income: {{yearlyIncome$ | async}}
+</div>
+
