@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder} from "@angular/forms";
+import {RebalanceService} from "./rebalance.service";
 
 @Component({
   selector: 'app-rebalance',
@@ -12,7 +13,7 @@ export class RebalanceComponent implements OnInit {
     [],
   );
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private rebalanceService: RebalanceService) { }
 
   public ngOnInit() {
   }
