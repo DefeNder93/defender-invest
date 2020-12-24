@@ -1,0 +1,24 @@
+<app-rebalance-common-params></app-rebalance-common-params>
+
+<app-rebalance-ticker [index]="i" (removeTicker)="removeTicker($event)" [form]="form" *ngFor="let form of tickersForm.controls; let i = index"></app-rebalance-ticker>
+
+<button (click)="addTicker()" type="button">Add ticker</button>
+
+<app-rebalance-results></app-rebalance-results>
+
+<button (click)="rebalance()" type="button">Rebalance</button>
+
+<button (click)="applyResults()" type="button">Apply Results</button>
+
+<button (click)="save()" type="button">Save</button>
+
+<button (click)="reset()" type="button">Reset</button>
+
+<!--  <glp-reward-->
+<!--    *ngFor="let control of form.controls; let i = index"-->
+<!--    [form]="control"-->
+<!--    [index]="i"-->
+<!--    [deleteAllowed]="true"-->
+<!--    (removeItem)="removeItem($event)">-->
+<!--  </glp-reward>-->
+
