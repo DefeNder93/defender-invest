@@ -12,8 +12,8 @@ import {PercentCalculationService} from "./percent-calculation.service";
 export class PercentCalculationComponent implements OnInit {
 
   public form: FormGroup = this.fb.group({
-    from: [null],
-    to: [null],
+    from: ['2018-07-22'],
+    to: ['2019-07-22'],
     totalPercent: [null]
   });
 
@@ -28,7 +28,5 @@ export class PercentCalculationComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  // Math.pow(base, exponent)
 
 }
