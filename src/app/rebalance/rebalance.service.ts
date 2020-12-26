@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {RebalanceTicker} from "../shared/models/rebalance-ticker.model";
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,8 @@ export class RebalanceService {
 
   constructor() { }
 
-  rebalanceTicker = (tickers: RebalanceTicker[]) => {
-    // TODO
-  }
+  _rebalance$ = new Subject<number>();
+  rebalance$ = this._rebalance$.asObservable();
+
+  rebalance = (rebalanceAmount: number) => this._rebalance$.next(rebalanceAmount);
 }

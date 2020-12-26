@@ -19,8 +19,10 @@
     <input formControlName="currentPrice" matInput type="number">
   </mat-form-field>
 
-  <button (click)="removeTicker.next(index)" type="button">Remove Ticker</button>
+  <ng-container *ngIf="additionalAmount$ | async as additionalAmount">
+    {{additionalAmount}} {{getFb().value.name}}
+  </ng-container>
 
-<!--  Yearly Income: {{yearlyIncome$ | async}}-->
+  <button (click)="removeTicker.next(index)" type="button">Remove Ticker</button>
 </div>
 

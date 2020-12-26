@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {RebalanceParams} from "../../shared/models/rebalance-ticker.model";
 import {Subject} from "rxjs";
@@ -18,6 +18,7 @@ export class RebalanceCommonParamsComponent implements OnInit, OnDestroy {
   });
 
   @Output() paramsUpdate = new EventEmitter<RebalanceParams>();
+  @Input() initialParams: RebalanceParams | null = null;
 
   constructor(private fb: FormBuilder) { }
 
@@ -26,7 +27,8 @@ export class RebalanceCommonParamsComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.onDestroy$)
       )
-      .subscribe((value) => this.paramsUpdate.next(value))
+      .subscribe((value) => this.paramsUpdate.next(value));
+    this.form.patchValue(this.initialParams as any);
   }
 
   ngOnDestroy() {
