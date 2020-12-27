@@ -63,7 +63,7 @@ export class RebalanceComponent implements OnInit {
   }
 
   reset = () => {
-
+    this.rebalanceResults$.next([]);
   }
 
   updateParams = (data: RebalanceParams) => {
