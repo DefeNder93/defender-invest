@@ -19,5 +19,5 @@ export class RebalanceService {
       name: ticker.name,
       additionalAmount: Math.round(rebalanceAmount * ticker.weight / ticker.currentPrice - ticker.currentAmount),
       done: false
-    }));
+    })).filter((e) => e.additionalAmount !== 0);
 }

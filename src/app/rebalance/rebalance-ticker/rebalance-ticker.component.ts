@@ -41,4 +41,6 @@ export class RebalanceTickerComponent implements OnInit, OnDestroy {
 
   getAdditionalAmount = () => this.results ? this.results.find((e) => e.name === this.form.value.name)?.additionalAmount : 0;
 
+  abs = (value: number) => Math.abs(value);
+
 }

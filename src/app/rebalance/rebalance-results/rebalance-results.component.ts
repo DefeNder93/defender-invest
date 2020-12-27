@@ -19,4 +19,6 @@ export class RebalanceResultsComponent implements OnInit {
   ngOnInit() {
   }
 
+  abs = (value: number) => Math.abs(value);
+
 }

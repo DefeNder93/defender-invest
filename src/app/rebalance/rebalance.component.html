@@ -11,6 +11,8 @@
 
 <button (click)="resetResults()" type="button">Reset</button>
 
+<div>Rebalance tasks:</div>
+
 <app-rebalance-results (toggleDone)="toggleDone($event)" [rebalanceResults]="rebalanceResults$ | async"></app-rebalance-results>
 
 <!--  <glp-reward-->
