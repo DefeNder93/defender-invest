@@ -74,10 +74,15 @@ export class RebalanceComponent implements OnInit {
   }
 
   applyResults = () => {
-
+    this.rebalanceResults$.getValue().forEach((result) => {
+      const tickerForm = this.tickersForm.controls.find((e) => e.value.name === result.name);
+      tickerForm && (tickerForm.patchValue({currentAmount: tickerForm.value.currentAmount + result.additionalAmount}))
+    });
+    this.storageService.saveRebalanceTickers(this.tickersForm.value);
+    this.resetResults();
   }
 
-  reset = () => {
+  resetResults = () => {
     this.rebalanceResults$.next([]);
     this.storageService.saveRebalanceResults([]);
   }
