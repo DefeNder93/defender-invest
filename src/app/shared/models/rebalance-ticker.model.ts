@@ -8,3 +8,14 @@ export interface RebalanceTicker {
 export interface RebalanceParams {
   rebalanceAmount: number;
 }
+
+export interface RebalanceResult {
+  name: string;
+  additionalAmount: number;
+  done: boolean;  // if rebalance for this ticker was completed
+}
+
+export interface RebalanceResultDone {
+  name: string;
+  done: boolean;  // if rebalance for this ticker was completed
+}

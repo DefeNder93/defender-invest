@@ -4,6 +4,8 @@ import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { MenuComponent } from './components/menu/menu.component';
+import {RouterModule} from "@angular/router";
 
 const MATERIAL_MODULES = [
   MatInputModule,
@@ -14,18 +16,26 @@ const MATERIAL_MODULES = [
 const COMMON_MODULES = [
   FormsModule,
   ReactiveFormsModule,
-  CommonModule
+  CommonModule,
+  RouterModule
+];
+
+const COMPONENTS = [
+  MenuComponent
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ...COMPONENTS
+  ],
   imports: [
     ...COMMON_MODULES,
     ...MATERIAL_MODULES
   ],
   exports: [
     ...COMMON_MODULES,
-    ...MATERIAL_MODULES
+    ...MATERIAL_MODULES,
+    ...COMPONENTS
   ]
 })
 export class SharedModule { }
