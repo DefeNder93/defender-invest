@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {RebalanceParams} from "../../shared/models/rebalance-ticker.model";
 import {Subject} from "rxjs";
@@ -7,7 +7,8 @@ import {takeUntil} from "rxjs/operators";
 @Component({
   selector: 'app-rebalance-common-params',
   templateUrl: './rebalance-common-params.component.html',
-  styleUrls: ['./rebalance-common-params.component.scss']
+  styleUrls: ['./rebalance-common-params.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RebalanceCommonParamsComponent implements OnInit, OnDestroy {
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder} from "@angular/forms";
 import {RebalanceService} from "./rebalance.service";
 import {RebalanceParams, RebalanceResult, RebalanceResultDone} from "../shared/models/rebalance-ticker.model";
@@ -7,7 +7,8 @@ import {BehaviorSubject} from "rxjs";
 @Component({
   selector: 'app-rebalance',
   templateUrl: './rebalance.component.html',
-  styleUrls: ['./rebalance.component.scss']
+  styleUrls: ['./rebalance.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RebalanceComponent implements OnInit {
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {debounceTime, map, startWith} from "rxjs/operators";
 import {Observable} from "rxjs";
@@ -7,7 +7,8 @@ import {PercentCalculationService} from "./percent-calculation.service";
 @Component({
   selector: 'app-percent-calculation',
   templateUrl: './percent-calculation.component.html',
-  styleUrls: ['./percent-calculation.component.scss']
+  styleUrls: ['./percent-calculation.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PercentCalculationComponent implements OnInit {
 

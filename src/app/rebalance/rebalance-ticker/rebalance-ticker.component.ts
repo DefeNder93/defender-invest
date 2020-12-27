@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormGroup} from "@angular/forms";
 import {Subject} from "rxjs";
 import {RebalanceResult} from "../../shared/models/rebalance-ticker.model";
@@ -6,7 +6,8 @@ import {RebalanceResult} from "../../shared/models/rebalance-ticker.model";
 @Component({
   selector: 'app-rebalance-ticker',
   templateUrl: './rebalance-ticker.component.html',
-  styleUrls: ['./rebalance-ticker.component.scss']
+  styleUrls: ['./rebalance-ticker.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RebalanceTickerComponent implements OnInit, OnDestroy {
 
