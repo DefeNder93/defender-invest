@@ -8,3 +8,8 @@ export interface RebalanceTicker {
 export interface RebalanceParams {
   rebalanceAmount: number;
 }
+
+export interface RebalanceResult {
+  name: string;
+  additionalAmount: number;
+}

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder} from "@angular/forms";
 import {RebalanceService} from "./rebalance.service";
-import {RebalanceParams} from "../shared/models/rebalance-ticker.model";
+import {RebalanceParams, RebalanceResult} from "../shared/models/rebalance-ticker.model";
+import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-rebalance',
@@ -11,6 +12,7 @@ import {RebalanceParams} from "../shared/models/rebalance-ticker.model";
 export class RebalanceComponent implements OnInit {
 
   public rebalanceParams: RebalanceParams | null = null;
+  public rebalanceResults$ = new BehaviorSubject<RebalanceResult[]>([]);
 
   public tickersForm: FormArray = this.fb.array(
     [
@@ -47,7 +49,11 @@ export class RebalanceComponent implements OnInit {
     this.tickersForm.removeAt(index);
   }
 
-  public rebalance = () => this.rebalanceService.rebalance(this.rebalanceParams?.rebalanceAmount ? this.rebalanceParams.rebalanceAmount : 0);
+  public rebalance = () => {
+    // this.rebalanceService.rebalance(this.rebalanceParams?.rebalanceAmount ? this.rebalanceParams.rebalanceAmount : 0);
+    const results = this.rebalanceService.rebalanceTickers(this.rebalanceParams?.rebalanceAmount ? this.rebalanceParams.rebalanceAmount : 0, this.tickersForm.value);
+    this.rebalanceResults$.next(results);
+  }
 
   public applyResults = () => {
 

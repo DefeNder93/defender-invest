@@ -19,7 +19,7 @@
     <input formControlName="currentPrice" matInput type="number">
   </mat-form-field>
 
-  <ng-container *ngIf="additionalAmount$ | async as additionalAmount">
+  <ng-container *ngIf="getAdditionalAmount() as additionalAmount">
     {{additionalAmount}} {{getFb().value.name}}
   </ng-container>
 

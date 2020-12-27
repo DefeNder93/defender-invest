@@ -1,8 +1,7 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormGroup} from "@angular/forms";
-import {BehaviorSubject, pipe, Subject} from "rxjs";
-import {RebalanceService} from "../rebalance.service";
-import {takeUntil} from "rxjs/operators";
+import {Subject} from "rxjs";
+import {RebalanceResult} from "../../shared/models/rebalance-ticker.model";
 
 @Component({
   selector: 'app-rebalance-ticker',
@@ -13,28 +12,24 @@ export class RebalanceTickerComponent implements OnInit, OnDestroy {
 
   @Input() form: AbstractControl = new FormGroup({});
   @Input() index: number = 0;
+  @Input() results: RebalanceResult[] | null = [];
 
   @Output() removeTicker = new EventEmitter();
 
   private onDestroy$: Subject<void> = new Subject();
-  additionalAmount$ = new BehaviorSubject<number>(0);
 
-  constructor(private rebalanceService: RebalanceService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.rebalanceService.rebalance$.pipe(
-      pipe(takeUntil(this.onDestroy$))
-    ).subscribe((amount) => {
-      const newAmount = Math.round(amount * this.form.value.weight / this.form.value.currentPrice);
-      this.additionalAmount$.next(newAmount - this.form.value.currentAmount);
-    });
   }
 
-  public ngOnDestroy() {
+  ngOnDestroy() {
     this.onDestroy$.next();
     this.onDestroy$.complete();
   }
 
   getFb = () => this.form as FormGroup;
+
+  getAdditionalAmount = () => this.results ? this.results.find((e) => e.name === this.form.value.name)?.additionalAmount : 0;
 
 }
