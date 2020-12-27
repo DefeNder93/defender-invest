@@ -1,1 +1,1 @@
-<p>rebalance-results works!</p>
+<p *ngFor="let result of rebalanceResults">{{result.name}} {{result.additionalAmount}} <input [ngModel]="result.done" (ngModelChange)="this.toggleDone.next({name: result.name, done: $event})" type="checkbox"></p>

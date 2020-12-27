@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder} from "@angular/forms";
 import {RebalanceService} from "./rebalance.service";
-import {RebalanceParams, RebalanceResult} from "../shared/models/rebalance-ticker.model";
+import {RebalanceParams, RebalanceResult, RebalanceResultDone} from "../shared/models/rebalance-ticker.model";
 import {BehaviorSubject} from "rxjs";
 
 @Component({
@@ -11,10 +11,10 @@ import {BehaviorSubject} from "rxjs";
 })
 export class RebalanceComponent implements OnInit {
 
-  public rebalanceParams: RebalanceParams | null = null;
-  public rebalanceResults$ = new BehaviorSubject<RebalanceResult[]>([]);
+  rebalanceParams: RebalanceParams | null = null;
+  rebalanceResults$ = new BehaviorSubject<RebalanceResult[]>([]);
 
-  public tickersForm: FormArray = this.fb.array(
+  tickersForm: FormArray = this.fb.array(
     [
       this.fb.group({
         name: 'XLP',
@@ -33,10 +33,10 @@ export class RebalanceComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private rebalanceService: RebalanceService) { }
 
-  public ngOnInit() {
+  ngOnInit() {
   }
 
-  public addTicker = () => {
+  addTicker = () => {
     this.tickersForm.push(this.fb.group({
       name: [null],
       weight: [null],
@@ -45,30 +45,33 @@ export class RebalanceComponent implements OnInit {
     }));
   }
 
-  public removeTicker = (index: number) => {
+  removeTicker = (index: number) => {
     this.tickersForm.removeAt(index);
   }
 
-  public rebalance = () => {
-    // this.rebalanceService.rebalance(this.rebalanceParams?.rebalanceAmount ? this.rebalanceParams.rebalanceAmount : 0);
+  rebalance = () => {
     const results = this.rebalanceService.rebalanceTickers(this.rebalanceParams?.rebalanceAmount ? this.rebalanceParams.rebalanceAmount : 0, this.tickersForm.value);
     this.rebalanceResults$.next(results);
   }
 
-  public applyResults = () => {
+  applyResults = () => {
 
   }
 
-  public save = () => {
+  save = () => {
 
   }
 
-  public reset = () => {
+  reset = () => {
 
   }
 
-  public updateParams = (data: RebalanceParams) => {
+  updateParams = (data: RebalanceParams) => {
     this.rebalanceParams = data;
+  }
+
+  toggleDone = (event: RebalanceResultDone) => {
+    console.log('event', event);
   }
 
 }
