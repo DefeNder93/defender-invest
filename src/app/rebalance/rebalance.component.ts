@@ -14,7 +14,7 @@ import {StorageService} from "../storage.service";
 export class RebalanceComponent implements OnInit {
 
   rebalanceParams: RebalanceParams | null = this.storageService.getRebalanceParams();
-  rebalanceResults$ = new BehaviorSubject<RebalanceResult[]>([]);
+  rebalanceResults$ = new BehaviorSubject<RebalanceResult[]>(this.storageService.getRebalanceResults());
 
   tickersForm: FormArray = this.fb.array(
     this.getTickersForm()
@@ -70,6 +70,7 @@ export class RebalanceComponent implements OnInit {
   rebalance = () => {
     const results = this.rebalanceService.rebalanceTickers(this.rebalanceParams?.rebalanceAmount ? this.rebalanceParams.rebalanceAmount : 0, this.tickersForm.value);
     this.rebalanceResults$.next(results);
+    this.storageService.saveRebalanceResults(results);
   }
 
   applyResults = () => {
@@ -78,6 +79,7 @@ export class RebalanceComponent implements OnInit {
 
   reset = () => {
     this.rebalanceResults$.next([]);
+    this.storageService.saveRebalanceResults([]);
   }
 
   updateParams = (data: RebalanceParams) => {
@@ -86,7 +88,11 @@ export class RebalanceComponent implements OnInit {
   }
 
   toggleDone = (event: RebalanceResultDone) => {
-    console.log('event', event);
+    const results = this.rebalanceResults$.getValue();
+    const result = results.find((e) => e.name === event.name);
+    result && (result.done = event.done);
+    this.rebalanceResults$.next(results);
+    this.storageService.saveRebalanceResults(results)
   }
 
 }
