@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnIn
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {RebalanceParams} from "../../shared/models/rebalance-ticker.model";
 import {Subject} from "rxjs";
-import {takeUntil} from "rxjs/operators";
+import {debounceTime, takeUntil} from "rxjs/operators";
 
 @Component({
   selector: 'app-rebalance-common-params',
@@ -26,6 +26,7 @@ export class RebalanceCommonParamsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.form.valueChanges
       .pipe(
+        debounceTime(300),
         takeUntil(this.onDestroy$)
       )
       .subscribe((value) => this.paramsUpdate.next(value));
