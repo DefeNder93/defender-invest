@@ -30,7 +30,7 @@ export class RebalanceCommonParamsComponent implements OnInit, OnDestroy {
         takeUntil(this.onDestroy$)
       )
       .subscribe((value) => this.paramsUpdate.next(value));
-    this.form.patchValue(this.initialParams as any);
+    this.initialParams && this.form.patchValue(this.initialParams);
   }
 
   ngOnDestroy() {
