@@ -5,6 +5,7 @@ import {Observable, of, Subject} from "rxjs";
 import {PercentCalculationService} from "./percent-calculation.service";
 import {StorageService} from "../storage.service";
 import {PercentCalcParams} from "../shared/models/percent-calc.model";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-percent-calculation',
@@ -21,6 +22,11 @@ export class PercentCalculationComponent implements OnInit, OnDestroy {
     to: [null],
     totalPercent: [null]
   });
+
+  setToNow = () => {
+    this.form.controls.to.patchValue(moment().format('YYYY-MM-DD'));
+    this.storageService.savePercentCalcParams(this.form.value);
+  }
 
   public yearlyIncome$: Observable<string> = of('-');
 
