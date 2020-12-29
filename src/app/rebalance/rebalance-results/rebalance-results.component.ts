@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AbstractControl, FormGroup} from "@angular/forms";
 import {RebalanceResult} from "../../shared/models/rebalance-ticker.model";
 
 @Component({
@@ -11,6 +10,7 @@ import {RebalanceResult} from "../../shared/models/rebalance-ticker.model";
 export class RebalanceResultsComponent implements OnInit {
 
   @Output() toggleDone = new EventEmitter();
+  @Output() removeTask = new EventEmitter();
 
   @Input() rebalanceResults: RebalanceResult[] | null = [];
 
@@ -20,5 +20,4 @@ export class RebalanceResultsComponent implements OnInit {
   }
 
   abs = (value: number) => Math.abs(value);
-
 }
