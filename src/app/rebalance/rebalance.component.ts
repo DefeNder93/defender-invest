@@ -98,7 +98,14 @@ export class RebalanceComponent implements OnInit {
     const result = results.find((e) => e.name === event.name);
     result && (result.done = event.done);
     this.rebalanceResults$.next(results);
-    this.storageService.saveRebalanceResults(results)
+    this.storageService.saveRebalanceResults(results);
+  }
+
+  removeTask = (event: any) => {
+    const results = this.rebalanceResults$.getValue().filter((e) => e.name !== event.name);
+    this.rebalanceResults$.next(results);
+    this.storageService.saveRebalanceResults(results);
+    return results;
   }
 
 }

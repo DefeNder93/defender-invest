@@ -13,7 +13,8 @@
 
 <div>Rebalance tasks:</div>
 
-<app-rebalance-results (toggleDone)="toggleDone($event)" [rebalanceResults]="rebalanceResults$ | async"></app-rebalance-results>
+<app-rebalance-results (toggleDone)="toggleDone($event)" (removeTask)="removeTask($event)"
+                       [rebalanceResults]="rebalanceResults$ | async"></app-rebalance-results>
 
 <!--  <glp-reward-->
 <!--    *ngFor="let control of form.controls; let i = index"-->
