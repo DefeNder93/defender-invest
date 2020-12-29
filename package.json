@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "start_no_reload": "ng serve --live-reload=false",
+    "start_hmr": "ng serve --hmr",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
