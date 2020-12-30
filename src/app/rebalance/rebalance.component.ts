@@ -68,7 +68,9 @@ export class RebalanceComponent implements OnInit {
   }
 
   rebalance = () => {
-    const results = this.rebalanceService.rebalanceTickers(this.rebalanceParams?.rebalanceAmount ? this.rebalanceParams.rebalanceAmount : 0, this.tickersForm.value);
+    const rebalanceAmount = this.rebalanceParams?.rebalanceAmount ? this.rebalanceParams.rebalanceAmount : 0;
+    const rebalanceAmountMultiplied = this.rebalanceParams?.multiplier ? rebalanceAmount * this.rebalanceParams?.multiplier : rebalanceAmount;
+    const results = this.rebalanceService.rebalanceTickers(rebalanceAmountMultiplied, this.tickersForm.value);
     results.length === 0 && alert('There is nothing to rebalance');
     this.rebalanceResults$.next(results);
     this.storageService.saveRebalanceResults(results);

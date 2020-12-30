@@ -15,7 +15,8 @@ export class RebalanceCommonParamsComponent implements OnInit, OnDestroy {
   private onDestroy$: Subject<void> = new Subject();
 
   public form: FormGroup = this.fb.group({
-    rebalanceAmount: [null]
+    rebalanceAmount: [null],
+    multiplier: [1],
   });
 
   @Output() paramsUpdate = new EventEmitter<RebalanceParams>();

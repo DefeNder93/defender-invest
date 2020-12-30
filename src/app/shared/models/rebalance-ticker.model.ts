@@ -7,6 +7,7 @@ export interface RebalanceTicker {
 
 export interface RebalanceParams {
   rebalanceAmount: number;
+  multiplier: number;
 }
 
 export interface RebalanceResult {
