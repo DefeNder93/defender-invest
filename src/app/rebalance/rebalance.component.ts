@@ -49,6 +49,7 @@ export class RebalanceComponent implements OnInit {
       weight: [null],
       currentAmount: [null],
       currentPrice: [null],
+      comparisonPrice: [null],
     }));
     this.storageService.saveRebalanceTickers(this.tickersForm.value);
   }

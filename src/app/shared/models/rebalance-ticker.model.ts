@@ -3,6 +3,7 @@ export interface RebalanceTicker {
   weight: number;
   currentAmount:  number;
   currentPrice: number;
+  comparisonPrice: number;
 }
 
 export interface RebalanceParams {
