@@ -1,7 +1,10 @@
-<app-rebalance-common-params [initialParams]="rebalanceParams" (paramsUpdate)="updateParams($event)"></app-rebalance-common-params>
+<app-rebalance-common-params [rebalanceAmount]="rebalanceAmount$ | async" [initialParams]="rebalanceParams"
+                             (paramsUpdate)="updateParams($event)"></app-rebalance-common-params>
 
 <app-rebalance-ticker [results]="rebalanceResults$ | async" [index]="i" (removeTicker)="removeTicker($event)"
                       (changeTicker)="changeTicker()" [form]="form" *ngFor="let form of tickersForm.controls; let i = index"></app-rebalance-ticker>
+
+<button (click)="recalculateRebalanceAmount()" type="button">Recalculate rebalance amount</button>
 
 <button (click)="addTicker()" type="button">Add ticker</button>
 
@@ -9,7 +12,7 @@
 
 <button (click)="applyResults()" type="button">Apply Results</button>
 
-<button (click)="resetResults()" type="button">Reset</button>
+<!--<button (click)="resetResults()" type="button">Reset</button>-->
 
 <div>Rebalance tasks:</div>
 

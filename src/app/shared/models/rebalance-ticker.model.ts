@@ -7,8 +7,12 @@ export interface RebalanceTicker {
 }
 
 export interface RebalanceParams {
-  rebalanceAmount: number;
+  totalInvestedAmount: number;
+  weeklyAddition: number;
   multiplier: number;
+  activeInvestedAmount: number;
+  currentWeeklyMultiplied: number;
+  rebalanceAmount: number;
 }
 
 export interface RebalanceResult {

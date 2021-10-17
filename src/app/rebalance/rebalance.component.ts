@@ -15,6 +15,7 @@ export class RebalanceComponent implements OnInit {
 
   rebalanceParams: RebalanceParams | null = this.storageService.getRebalanceParams();
   rebalanceResults$ = new BehaviorSubject<RebalanceResult[]>(this.storageService.getRebalanceResults());
+  rebalanceAmount$ = new BehaviorSubject<number | null>(null);
 
   tickersForm: FormArray = this.fb.array(
     this.getTickersForm()
@@ -70,11 +71,21 @@ export class RebalanceComponent implements OnInit {
 
   rebalance = () => {
     const rebalanceAmount = this.rebalanceParams?.rebalanceAmount ? this.rebalanceParams.rebalanceAmount : 0;
-    const rebalanceAmountMultiplied = this.rebalanceParams?.multiplier ? rebalanceAmount * this.rebalanceParams?.multiplier : rebalanceAmount;
-    const results = this.rebalanceService.rebalanceTickers(rebalanceAmountMultiplied, this.tickersForm.value);
+    const results = this.rebalanceService.rebalanceTickers(rebalanceAmount, this.tickersForm.value);
     results.length === 0 && alert('There is nothing to rebalance');
     this.rebalanceResults$.next(results);
     this.storageService.saveRebalanceResults(results);
+  }
+
+  recalculateRebalanceAmount = () => {
+    let sum = 0;
+    this.tickersForm.controls.forEach((control) => {
+      sum += control.value.currentAmount * control.value.currentPrice;
+      // console.log('value', control.value.currentAmount * control.value.currentPrice);
+    });
+    this.rebalanceAmount$.next(sum);
+    // console.log('controls', this.tickersForm.controls)
+    // this.rebalanceAmount$.next();
   }
 
   applyResults = () => {

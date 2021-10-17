@@ -1,12 +1,30 @@
 <div [formGroup]="form">
   <mat-form-field class="example-form-field">
-    <mat-label>Rebalance Amount</mat-label>
-    <input formControlName="rebalanceAmount" matInput type="number">
+    <mat-label>Total Invested Amount</mat-label>
+    <input formControlName="totalInvestedAmount" matInput type="number">
   </mat-form-field>
-
+  <mat-form-field class="example-form-field">
+    <mat-label>Weekly addition</mat-label>
+    <input formControlName="weeklyAddition" matInput type="number">
+  </mat-form-field>
   <mat-form-field class="example-form-field">
     <mat-label>Multiplier</mat-label>
     <input formControlName="multiplier" matInput type="number">
+  </mat-form-field>
+  <br>
+  <button [disabled]="weeklyAdded$ | async" (click)="addWeekly()" type="button">Add weekly</button>
+  <mat-form-field class="example-form-field">
+    <mat-label>Active Invested Amount</mat-label>
+    <input formControlName="activeInvestedAmount" matInput type="number">
+  </mat-form-field>
+  <mat-form-field class="example-form-field">
+    <input formControlName="currentWeeklyMultiplied" matInput type="number">
+    <mat-label>Current weekly multiplied</mat-label>
+  </mat-form-field>
+  <button [disabled]="weeklyAddedToRebalance$ | async" (click)="addWeeklyToRebalance()" type="button">Add current weekly to rebalance</button>
+  <mat-form-field class="example-form-field">
+    <mat-label>Rebalance Amount</mat-label>
+    <input formControlName="rebalanceAmount" matInput type="number">
   </mat-form-field>
 </div>
 
