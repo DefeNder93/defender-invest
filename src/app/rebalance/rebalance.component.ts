@@ -92,6 +92,13 @@ export class RebalanceComponent implements OnInit {
     this.rebalanceAmount$.next(Math.round(amountSum/weightSum));
   }
 
+  applyComparisonPrices = () => {
+    this.tickersForm.controls.forEach((control) => {
+      control.patchValue({currentPrice: control.value.comparisonPrice})
+      control.patchValue({comparisonPrice: null})
+    });
+  }
+
   applyResults = () => {
     this.rebalanceResults$.getValue().forEach((result) => {
       const tickerForm = this.tickersForm.controls.find((e) => e.value.name === result.name);
