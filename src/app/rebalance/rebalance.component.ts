@@ -78,14 +78,18 @@ export class RebalanceComponent implements OnInit {
   }
 
   recalculateRebalanceAmount = () => {
-    let sum = 0;
+    let amountSum = 0;
+    let weightSum = 0;
     this.tickersForm.controls.forEach((control) => {
-      sum += control.value.currentAmount * control.value.currentPrice;
-      // console.log('value', control.value.currentAmount * control.value.currentPrice);
+      if (control.value.currentAmount > 0) {
+        amountSum += Math.abs(control.value.currentAmount) * control.value.comparisonPrice;
+      } else {
+        // TODO complete
+        amountSum += Math.abs(control.value.currentAmount) * control.value.currentPrice - Math.abs(control.value.currentAmount) * (control.value.comparisonPrice - control.value.currentPrice);
+      }
+      weightSum += Math.abs(control.value.weight);
     });
-    this.rebalanceAmount$.next(sum);
-    // console.log('controls', this.tickersForm.controls)
-    // this.rebalanceAmount$.next();
+    this.rebalanceAmount$.next(Math.round(amountSum/weightSum));
   }
 
   applyResults = () => {
