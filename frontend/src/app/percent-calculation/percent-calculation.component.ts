@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
 import {debounceTime, map, startWith, takeUntil} from "rxjs/operators";
 import {Observable, of, Subject} from "rxjs";
 import {PercentCalculationService} from "./percent-calculation.service";
@@ -17,7 +17,7 @@ export class PercentCalculationComponent implements OnInit, OnDestroy {
 
   private onDestroy$: Subject<void> = new Subject();
 
-  public form: FormGroup = this.fb.group({
+  public form: UntypedFormGroup = this.fb.group({
     from: [null],
     to: [null],
     totalPercent: [null]
@@ -31,7 +31,7 @@ export class PercentCalculationComponent implements OnInit, OnDestroy {
   public yearlyIncome$: Observable<string> = of('-');
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private percentCalculationService: PercentCalculationService,
     private storageService: StorageService
   ) { }

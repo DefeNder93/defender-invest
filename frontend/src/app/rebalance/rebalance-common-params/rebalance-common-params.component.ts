@@ -9,7 +9,7 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
 import {RebalanceParams} from "../../shared/models/rebalance-ticker.model";
 import { BehaviorSubject, Subject } from "rxjs";
 import {debounceTime, takeUntil} from "rxjs/operators";
@@ -24,7 +24,7 @@ export class RebalanceCommonParamsComponent implements OnInit, OnDestroy, OnChan
 
   private onDestroy$: Subject<void> = new Subject();
 
-  public form: FormGroup = this.fb.group({
+  public form: UntypedFormGroup = this.fb.group({
     totalInvestedAmount: [null],
     weeklyAddition: [null],
     multiplier: [null],
@@ -40,7 +40,7 @@ export class RebalanceCommonParamsComponent implements OnInit, OnDestroy, OnChan
   @Input() initialParams: RebalanceParams | null = null;
   @Input() rebalanceAmount: number | null = null;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: UntypedFormBuilder) { }
 
   ngOnInit() {
     this.form.valueChanges

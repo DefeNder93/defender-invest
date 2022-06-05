@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {AbstractControl, FormGroup} from "@angular/forms";
+import {AbstractControl, UntypedFormGroup} from "@angular/forms";
 import {Subject} from "rxjs";
 import {RebalanceResult} from "../../shared/models/rebalance-ticker.model";
 import {debounceTime, distinctUntilChanged, takeUntil} from "rxjs/operators";
@@ -12,7 +12,7 @@ import {debounceTime, distinctUntilChanged, takeUntil} from "rxjs/operators";
 })
 export class RebalanceTickerComponent implements OnInit, OnDestroy {
 
-  @Input() form: AbstractControl = new FormGroup({});
+  @Input() form: AbstractControl = new UntypedFormGroup({});
   @Input() index: number = 0;
   @Input() results: RebalanceResult[] | null = [];
 
@@ -37,7 +37,7 @@ export class RebalanceTickerComponent implements OnInit, OnDestroy {
     this.onDestroy$.complete();
   }
 
-  getFb = () => this.form as FormGroup;
+  getFb = () => this.form as UntypedFormGroup;
 
   getAdditionalAmount = () => this.results ? this.results.find((e) => e.name === this.form.value.name)?.additionalAmount : 0;
 

@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder} from "@angular/forms";
+import {UntypedFormArray, UntypedFormBuilder} from "@angular/forms";
 import {RebalanceService} from "./rebalance.service";
 import {RebalanceParams, RebalanceResult, RebalanceResultDone} from "../shared/models/rebalance-ticker.model";
 import {BehaviorSubject} from "rxjs";
@@ -17,7 +17,7 @@ export class RebalanceComponent implements OnInit {
   rebalanceResults$ = new BehaviorSubject<RebalanceResult[]>(this.storageService.getRebalanceResults());
   rebalanceAmount$ = new BehaviorSubject<number | null>(null);
 
-  tickersForm: FormArray = this.fb.array(
+  tickersForm: UntypedFormArray = this.fb.array(
     this.getTickersForm()
     //[
       // this.fb.group({
@@ -36,7 +36,7 @@ export class RebalanceComponent implements OnInit {
   );
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private rebalanceService: RebalanceService,
     private storageService: StorageService
   ) { }
