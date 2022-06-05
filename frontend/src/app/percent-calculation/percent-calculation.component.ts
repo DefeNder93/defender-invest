@@ -49,7 +49,7 @@ export class PercentCalculationComponent implements OnInit, OnDestroy {
 
     this.yearlyIncome$ = this.form.valueChanges.pipe(
       debounceTime(300),
-      startWith(params ? params : {from: null, to: null, totalPercent: null}),
+      startWith(null),
       map(({from, to, totalPercent}) => this.percentCalculationService.calculateYearlyIncome(from, to, totalPercent)),
       map((value) => value === null ? '-' : value + '')
     );
