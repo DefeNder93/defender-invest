@@ -6,6 +6,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { MenuComponent } from './components/menu/menu.component';
 import {RouterModule} from "@angular/router";
+import { CloseChartComponent } from './components/close-chart/close-chart.component';
 
 const MATERIAL_MODULES = [
   MatInputModule,
@@ -21,7 +22,8 @@ const COMMON_MODULES = [
 ];
 
 const COMPONENTS = [
-  MenuComponent
+  MenuComponent,
+  CloseChartComponent
 ];
 
 @NgModule({
