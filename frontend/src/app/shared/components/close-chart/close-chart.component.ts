@@ -40,6 +40,35 @@ export class CloseChartComponent implements OnInit {
     loadData('/assets/data.csv', svg, '1', 'red');
     loadData('/assets/data2.csv', svg, '2', 'blue');
 
+    const tradearrow = techan.plot.tradearrow()  // http://bl.ocks.org/andredumas/3c0eefdd77a6380b1a35
+      .xScale(x)
+      .yScale(y)
+      .orient(function(d: any) { return d.type.startsWith("buy") ? "up" : "down"; })
+      .on("mouseenter", enter)
+      .on("mouseout", out);
+
+    const valueText = svg.append('text')
+      .style("text-anchor", "end")
+      .attr("class", "coords")
+      .attr("x", width - 5)
+      .attr("y", -8);
+
+    const dateFormat = d3.timeFormat("%d-%b-%y"),
+      valueFormat = d3.format(',.2f');
+
+    function enter(d: any) {
+      valueText.style("display", "inline");
+      refreshText(d);
+    }
+
+    function out() {
+      valueText.style("display", "none");
+    }
+
+    function refreshText(d: any) {
+      valueText.text("Trade: " + dateFormat(d.date) + ", " + d.type + ", " + valueFormat(d.price));
+    }
+
     function loadData(path: string, svg: any, id: string, color: string) {
       d3.csv(path, function(error: any, data: any) {
         const accessor = close.accessor();
@@ -71,8 +100,17 @@ export class CloseChartComponent implements OnInit {
           .attr('dy', '.71em')
           .style('text-anchor', 'end')
           .text('Price ($)');
+
+        svg.append("g")
+          .attr("class", "tradearrow");
+
+        const trades = [
+          { date: data[5].date, type: "buy", price: data[5].close, quantity: 1000 },
+          { date: data[15].date, type: "sell", price: data[15].close, quantity: 200 }
+        ];
+
         // Only want this button to be active if the data has loaded
-        draw(data.slice(0, data.length-20), svg, id);
+        draw(data.slice(0, data.length-20), svg, id, trades);
         // d3.select('button').on('click', function() { draw(data, svg); }).style('display', 'inline');
 
         const obj = document.getElementById('close' + id);
@@ -80,11 +118,13 @@ export class CloseChartComponent implements OnInit {
       });
     }
 
-    function draw(data: any, svg: any, id: string) {
+    function draw(data: any, svg: any, id: string, trades: any) {
       x.domain(data.map(close.accessor().d));
       y.domain(techan.scale.plot.ohlc(data, close.accessor()).domain());
 
       svg.selectAll('g.close' + id).datum(data).call(close);
+      svg.selectAll("g.tradearrow").datum(trades).call(tradearrow);
+
       svg.selectAll('g.x.axis').call(xAxis);
       svg.selectAll('g.y.axis').call(yAxis);
     }
