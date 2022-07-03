@@ -1,0 +1,35 @@
+<mat-form-field appearance="fill">
+  <mat-label>Start date</mat-label>
+  <input matInput [matDatepicker]="picker1">
+  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+  <mat-datepicker #picker1></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>End date</mat-label>
+  <input matInput [matDatepicker]="picker2">
+  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+  <mat-datepicker #picker2></mat-datepicker>
+</mat-form-field>
+
+<button mat-button mat-raised-button>+ year</button>
+
+<mat-form-field appearance="fill">
+  <mat-label>First year</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let year of years" [value]="year">
+      {{year}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Last year</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let year of years" [value]="year">
+      {{year}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<button mat-button mat-raised-button>- year</button>
