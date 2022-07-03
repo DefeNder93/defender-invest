@@ -2,3 +2,16 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+path.line {
+  fill: none;
+  stroke-width: 1;
+}
+
+path.tradearrow.buy {
+  fill: #296608;
+}
+
+path.tradearrow.sell {
+  fill: #ee3072;
+}

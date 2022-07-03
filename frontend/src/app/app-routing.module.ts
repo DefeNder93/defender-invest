@@ -8,6 +8,7 @@ const routes: Routes = [
   {path: 'about', component: AboutComponent},
   {path: 'rebalance', component: RebalanceComponent},
   {path: 'percent-calculation', component: PercentCalculationComponent},
+  {path: 'spreads', loadChildren: () => import('./spreads/spreads.module').then((m) => m.SpreadsModule)},
   {path: '**', redirectTo: 'about'}
 ];
 
