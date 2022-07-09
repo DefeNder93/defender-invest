@@ -13,6 +13,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatChipsModule} from '@angular/material/chips';
 
 const MATERIAL_MODULES = [
   MatInputModule,
@@ -23,7 +24,8 @@ const MATERIAL_MODULES = [
   MatButtonModule,
   MatSelectModule,
   MatCheckboxModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatChipsModule
 ];
 
 const COMMON_MODULES = [
