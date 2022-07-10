@@ -11,6 +11,7 @@ From requirements:
 Without requirements:
 `pip3 install Flask`
 `pip3 install Flask-RESTful`
+`pip3 install -U flask-cors`
 
 ## Running
 

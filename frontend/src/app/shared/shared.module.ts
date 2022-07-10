@@ -7,11 +7,25 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { MenuComponent } from './components/menu/menu.component';
 import {RouterModule} from "@angular/router";
 import { CloseChartComponent } from './components/close-chart/close-chart.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatChipsModule} from '@angular/material/chips';
 
 const MATERIAL_MODULES = [
   MatInputModule,
   MatIconModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatButtonModule,
+  MatSelectModule,
+  MatCheckboxModule,
+  MatAutocompleteModule,
+  MatChipsModule
 ];
 
 const COMMON_MODULES = [

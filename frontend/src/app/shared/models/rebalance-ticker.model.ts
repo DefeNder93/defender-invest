@@ -1,7 +1,7 @@
 export interface RebalanceTicker {
   name: string;
   weight: number;
-  currentAmount:  number;
+  currentAmount: number;
   currentPrice: number;
   comparisonPrice: number;
 }
