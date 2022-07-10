@@ -58,8 +58,9 @@ export class CloseChartComponent implements OnInit, OnChanges {
       .on('mouseout', out);
 
     if (!!spreads) {
-      loadApiData(spreads[0].data[0], svg, '1', 'red');
-      loadApiData(spreads[1].data[0], svg, '2', 'blue');
+      const colors = ['orange', 'pink', 'red', 'blue'];
+      let i = 0;
+      spreads.forEach((e: any) => loadApiData(e.data[0], svg, ++i + '', colors.pop() || 'green'));
     } else {
       loadCsvData('/assets/data.csv', svg, '1', 'red');
       loadCsvData('/assets/data2.csv', svg, '2', 'blue');
