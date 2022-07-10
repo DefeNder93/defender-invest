@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { combineLatest, Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { combineLatest, Observable, Subject } from 'rxjs';
+import { map, startWith, takeUntil } from 'rxjs/operators';
 import { SpreadsService } from '../../../../shared/services/spreads.service';
 import { Spread } from '../../../../shared/models/spread.model';
 import { Api } from '../../../../shared/services/api.service';
@@ -12,13 +12,16 @@ import { Api } from '../../../../shared/services/api.service';
   styleUrls: ['./tickers-inputs.component.scss']
 })
 export class TickersInputsComponent implements OnInit {
+  @Output() update = new EventEmitter<Spread[]>();
+
   leg1Control = new FormControl<string>('');
   leg2Control = new FormControl<string>('');
   filteredLeg1Items!: Observable<string[]>;
   filteredLeg2Items!: Observable<string[]>;
-  options: string[] = ['BCN1', 'GOQ1', 'GOG1'];  // TODO take from BE
   spreads$: Observable<Spread[]> = this.spreadsService.getSpreads();
   tickers$: Observable<string[]> = this.spreadsService.tickers$;
+
+  private onDestroy$: Subject<void> = new Subject();
 
   constructor(private spreadsService: SpreadsService, private api: Api) {
   }
@@ -30,6 +33,14 @@ export class TickersInputsComponent implements OnInit {
     this.filteredLeg2Items = combineLatest([this.tickers$, this.leg2Control.valueChanges.pipe(startWith(''))]).pipe(
       map(([tickers, value]) => this._filter(tickers, value || '')),
     );
+    this.spreads$.pipe(takeUntil(this.onDestroy$)).subscribe((spreads) => {
+      spreads.length > 0 && this.update.next(spreads);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 
   add = () => {

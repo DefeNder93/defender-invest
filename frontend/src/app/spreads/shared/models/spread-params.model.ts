@@ -1,7 +1,8 @@
-// TODO implement
+import { Spread } from './spread.model';
+
 export interface SpreadParams {
   dates: SpreadDates;
-  tickers: string[];
+  spreads: Spread[];
   settings: SpreadSettings;
 }
 

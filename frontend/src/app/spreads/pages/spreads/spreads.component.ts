@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SpreadsService } from '../../shared/services/spreads.service';
 import { switchMap, take } from 'rxjs/operators';
 import { Api } from '../../shared/services/api.service';
+import { SpreadParams } from '../../shared/models/spread-params.model';
 
 @Component({
   selector: 'app-spreads',
@@ -15,9 +16,9 @@ export class SpreadsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  launch = () => {
+  launch = (params: SpreadParams) => {
     this.spreadsService.getSpreads().pipe(
-      switchMap((spreads) => this.api.getChartData(spreads)),
+      switchMap((spreads) => this.api.getChartData(params)),
       take(1)
     ).subscribe((r) => {
       console.log('launch', r);
