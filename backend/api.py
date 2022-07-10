@@ -8,17 +8,17 @@ CORS(app)
 
 @app.route("/chart-data", methods = ['POST'])
 def hello_world():
-    dates = request.json["dates"]
-    spreads = request.json["spreads"]
-    settings = request.json["settings"]
+    # dates = request.json["dates"]
+    # spreads = request.json["spreads"]
+    # settings = request.json["settings"]
     with open('data/BCN/1990.json') as json_file:
-        data = json.load(json_file)
-        return {
-            "username": "Alex",
-            "theme": 1,
-            "data": data,
-            "request": request.data["dates"]
-        }
+        with open('data/GOG/1990.json') as json_file2:
+            data = json.load(json_file)
+            data2 = json.load(json_file2)
+            return {
+                "spreads": [data, data2],
+                # "request": request.data["dates"]
+            }
 
 @app.route("/tickers", methods = ['GET'])
 def tickers():

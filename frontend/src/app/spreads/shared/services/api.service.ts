@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SpreadParams } from '../models/spread-params.model';
+import { ChardData } from '../models/spread-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,9 @@ export class Api {
   constructor(private http: HttpClient) {
   }
 
-  getChartData = (params: SpreadParams) => this.http.post(`${this.host}/chart-data`, params);
+  getChartData = (params: SpreadParams) => this.http.post<ChardData>(`${this.host}/chart-data`, params);
+
+  getChartDataDev = () => this.http.post<ChardData>(`${this.host}/chart-data`, {});
 
   getTickers = () => this.http.get<{tickers: string[]}>(`${this.host}/tickers`);
 }
