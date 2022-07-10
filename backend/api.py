@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 import json
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -14,3 +15,9 @@ def hello_world():
             "theme": 1,
             "data": data
         }
+
+@app.route("/tickers", methods = ['GET'])
+def tickers():
+    return {
+        "tickers": os.listdir("data")
+    }

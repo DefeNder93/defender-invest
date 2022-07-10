@@ -12,4 +12,6 @@ export class Api {
   }
 
   getChartData = (spreads: Spread[]) => this.http.post(`${this.host}/chart-data`, { spreads });
+
+  getTickers = () => this.http.get<{tickers: string[]}>(`${this.host}/tickers`);
 }

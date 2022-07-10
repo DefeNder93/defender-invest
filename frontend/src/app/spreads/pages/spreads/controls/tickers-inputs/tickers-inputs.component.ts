@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { SpreadsService } from '../../../../shared/services/spreads.service';
 import { Spread } from '../../../../shared/models/spread.model';
+import { Api } from '../../../../shared/services/api.service';
 
 @Component({
   selector: 'app-tickers-inputs',
@@ -15,20 +16,19 @@ export class TickersInputsComponent implements OnInit {
   leg2Control = new FormControl<string>('');
   filteredLeg1Items!: Observable<string[]>;
   filteredLeg2Items!: Observable<string[]>;
-  options: string[] = ['BCN', 'GOQ', 'GOG'];  // TODO take from BE
+  options: string[] = ['BCN1', 'GOQ1', 'GOG1'];  // TODO take from BE
   spreads$: Observable<Spread[]> = this.spreadsService.getSpreads();
+  tickers$: Observable<string[]> = this.spreadsService.tickers$;
 
-  constructor(private spreadsService: SpreadsService) {
+  constructor(private spreadsService: SpreadsService, private api: Api) {
   }
 
   ngOnInit() {
-    this.filteredLeg1Items = this.leg1Control.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
+    this.filteredLeg1Items = combineLatest([this.tickers$, this.leg1Control.valueChanges.pipe(startWith(''))]).pipe(
+      map(([tickers, value]) => this._filter(tickers, value || '')),
     );
-    this.filteredLeg2Items = this.leg2Control.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
+    this.filteredLeg2Items = combineLatest([this.tickers$, this.leg2Control.valueChanges.pipe(startWith(''))]).pipe(
+      map(([tickers, value]) => this._filter(tickers, value || '')),
     );
   }
 
@@ -37,8 +37,8 @@ export class TickersInputsComponent implements OnInit {
       this.spreadsService.addSpread({leg1: this.leg1Control.value, leg2:  this.leg2Control.value});
   }
 
-  private _filter(value: string): string[] {
+  private _filter(tickers: string[], value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    return tickers.filter(option => option.toLowerCase().includes(filterValue));
   }
 }
