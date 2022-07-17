@@ -1,31 +1,42 @@
 import json
 import talib as ta
 import numpy as np
-import os.path
-import time
-from datetime import datetime, timedelta
+from datetime import datetime
 import statistics
-import math
 import copy
 # TODO old version, rework
 class ConfigBacktester:
     def init(self):
-        with open('config-backtester.json') as json_file:  # TODO get from the API
-            config = json.load(json_file)
-            self.spreads = config["spreads"]
+        self.sma_len = 9
+        self.std_multiplier_buy = 0.001
+        self.std_multiplier_sell = 0.001
 
-            # common params
-            self.single_buy = config["common"]["single_buy"]
-            self.first_year = config["common"]["first_year"]
-            self.last_year = config["common"]["last_year"]
+        # params from API start
+        spread1 = {}
+        spread1["leg1"] = "GOQ"
+        spread1["leg2"] = "BCN"
+        spread1["leg1_price_multiplier"] = 1  # TODO add to FE or use %?
+        spread1["leg2_price_multiplier"] = 10
+        spreads = []
+        spreads.append(spread1)
 
-            self.start_date = config["common"]["start_date"]
-            self.end_date = config["common"]["end_date"]
+        dates = {}
+        dates["startDate"] = "2000-08-13"
+        dates["endDate"] = "2000-08-12"
+        dates["firstYear"] = 1994
+        dates["lastYear"] = 2021
+        # params from API end
 
-            self.std_multiplier_buy = config["common"]["std_multiplier_buy"]
-            self.std_multiplier_sell = config["common"]["std_multiplier_sell"]
+        self.spreads = spreads
 
-            self.data = self.fill_data()
+        # common params
+        self.first_year = dates["firstYear"]
+        self.last_year = dates["lastYear"]
+
+        self.start_date = dates["startDate"]
+        self.end_date = dates["endDate"]
+
+        self.data = self.fill_data()
         pass
 
     def fill_data(self):
@@ -55,11 +66,11 @@ class ConfigBacktester:
                 "leg2_ticker": self.spreads[i]["leg2"],
                 "leg1_data": leg1_len_adjusted,
                 "leg2_data": leg2_len_adjusted,
-                "leg1_multiplier": self.spreads[i]["leg1_multiplier"],
+                "leg1_multiplier": 1,  # deprecated
                 "leg1_price_multiplier": self.spreads[i]["leg1_price_multiplier"],
-                "leg2_multiplier": self.spreads[i]["leg2_multiplier"],
+                "leg2_multiplier": 1,
                 "leg2_price_multiplier": self.spreads[i]["leg2_price_multiplier"],
-                "sma_len": self.spreads[i]["sma_len"],
+                "sma_len": self.sma_len,
             }
             spreads.append(current_spread)
         return spreads

@@ -3,6 +3,7 @@ import { SpreadDates, SpreadParams, SpreadSettings } from '../../../shared/model
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Spread } from '../../../shared/models/spread.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-controls',
@@ -26,7 +27,11 @@ export class ControlsComponent {
       return;
     }
     this.launch.next({
-      dates: this.dates$.value,
+      dates: {
+        ...this.dates$.value,
+        startDate: moment(this.dates$.value.startDate).format('YYYY-MM-DD'),
+        endDate: moment(this.dates$.value.endDate).format('YYYY-MM-DD')
+      },
       spreads: this.spreads$.value,
       settings: this.settings$.value
     });

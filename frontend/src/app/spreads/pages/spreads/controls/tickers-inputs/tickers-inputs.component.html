@@ -15,6 +15,11 @@
       </mat-autocomplete>
     </mat-form-field>
 
+    <mat-form-field class="example-form-field">
+      <mat-label>Leg 1 price multiplier </mat-label>
+      <input [formControl]="leg1PriceMultiplierControl" matInput type="number">
+    </mat-form-field>
+
     <mat-form-field appearance="fill">
       <mat-label>Leg 2</mat-label>
       <input type="text"
@@ -28,6 +33,11 @@
           {{option}}
         </mat-option>
       </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="example-form-field">
+      <mat-label>Leg 2 price multiplier </mat-label>
+      <input [formControl]="leg2PriceMultiplierControl" matInput type="number">
     </mat-form-field>
   </form>
 

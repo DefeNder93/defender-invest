@@ -9,8 +9,8 @@ export interface SpreadParams {
 export interface SpreadDates {
   startDate: string;
   endDate: string;
-  firstYear: string;
-  lastYear: string;
+  firstYear: number;
+  lastYear: number;
 }
 
 export interface SpreadSettings {

@@ -16,6 +16,8 @@ export class TickersInputsComponent implements OnInit {
 
   leg1Control = new FormControl<string>('');
   leg2Control = new FormControl<string>('');
+  leg1PriceMultiplierControl = new FormControl<number>(1);
+  leg2PriceMultiplierControl = new FormControl<number>(1);
   filteredLeg1Items!: Observable<string[]>;
   filteredLeg2Items!: Observable<string[]>;
   spreads$: Observable<Spread[]> = this.spreadsService.getSpreads();
@@ -45,7 +47,13 @@ export class TickersInputsComponent implements OnInit {
 
   add = () => {
     this.leg1Control.value && this.leg2Control.value &&
-      this.spreadsService.addSpread({leg1: this.leg1Control.value, leg2:  this.leg2Control.value});
+      this.spreadsService.addSpread(
+        {
+          leg1: this.leg1Control.value,
+          leg2:  this.leg2Control.value,
+          leg1_price_multiplier: this.leg1PriceMultiplierControl.value || 1,
+          leg2_price_multiplier: this.leg2PriceMultiplierControl.value || 1
+        });
   }
 
   private _filter(tickers: string[], value: string): string[] {
