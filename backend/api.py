@@ -2,12 +2,16 @@ from flask import Flask, request
 from flask_cors import CORS
 import json
 import os
+from spreads import Spreads
 
 app = Flask(__name__)
 CORS(app)
 
 @app.route("/chart-data", methods = ['POST'])
 def hello_world():
+    # TODO взять config-backtester из crypto api и переработать, на FE должен быть 1 чарт и панель с настройками ( попробовать обойтись этим )
+    spread = Spreads()
+    spread.test()
     # dates = request.json["dates"]
     # spreads = request.json["spreads"]
     # settings = request.json["settings"]

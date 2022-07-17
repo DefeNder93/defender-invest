@@ -1,0 +1,31 @@
+{
+  "common": {
+    "use_ideal": false,
+    "min_ideal_perc": 0.5,
+    "sell_afer_max_days": false,
+    "max_days": 7,
+    "single_buy": false,
+    "std_multiplier_buy": 0.001,
+    "std_multiplier_sell": 0.001,
+    "take_profit_percent": null,
+    "stop_loss_percent": null,
+    "first_year": 1994,
+    "last_year": 2021,
+    "start_date": "2000-08-13",
+    "end_date": "2000-08-12"
+  },
+  "spreads": [
+    {
+      "leg1_multiplier": 1,
+      "leg1_price_multiplier": 1,
+      "leg1": "GOQ",
+      "leg2_multiplier": 1,
+      "leg2_price_multiplier": 10,
+      "leg2": "BCN",
+      "sma_len": 9,
+      "start_date": null,
+      "end_date": null,
+      "years_to_trade": null
+    }
+  ]
+}
