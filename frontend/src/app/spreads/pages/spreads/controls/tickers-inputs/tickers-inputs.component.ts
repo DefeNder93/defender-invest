@@ -4,7 +4,6 @@ import { combineLatest, Observable, Subject } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';
 import { SpreadsService } from '../../../../shared/services/spreads.service';
 import { Spread } from '../../../../shared/models/spread.model';
-import { Api } from '../../../../shared/services/api.service';
 
 @Component({
   selector: 'app-tickers-inputs',
@@ -25,7 +24,7 @@ export class TickersInputsComponent implements OnInit {
 
   private onDestroy$: Subject<void> = new Subject();
 
-  constructor(private spreadsService: SpreadsService, private api: Api) {
+  constructor(private spreadsService: SpreadsService) {
   }
 
   ngOnInit() {
