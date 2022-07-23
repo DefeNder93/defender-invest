@@ -23,5 +23,5 @@ export class SpreadsService {
 
   addSpread = (spread: Spread) => this.spreads$.next(this.spreads$.value.concat(spread));
 
-  removeSpread = (spread: Spread) => this.spreads$.next(this.spreads$.value.filter(e => e.leg1 !== spread.leg1 && e.leg2 !== spread.leg2));
+  removeSpread = (spread: Spread) => this.spreads$.next(this.spreads$.value.filter(e => e.leg1 + e.leg2 !== spread.leg1 + spread.leg2));
 }

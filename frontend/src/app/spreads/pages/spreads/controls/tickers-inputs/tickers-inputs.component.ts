@@ -55,6 +55,8 @@ export class TickersInputsComponent implements OnInit {
         });
   }
 
+  remove = (spread: Spread) => this.spreadsService.removeSpread(spread);
+
   private _filter(tickers: string[], value: string): string[] {
     const filterValue = value.toLowerCase();
     return tickers.filter(option => option.toLowerCase().includes(filterValue));

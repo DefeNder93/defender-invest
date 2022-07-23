@@ -45,7 +45,12 @@
 </div>
 <div>
   <mat-chip-list aria-label="Spreads">
-    <mat-chip *ngFor="let spread of spreads$ | async">{{ spread.leg1 }}{{ spread.leg2 }}</mat-chip>
+    <mat-chip *ngFor="let spread of spreads$ | async" (removed)="remove(spread)">
+      {{ spread.leg1 }}{{ spread.leg2 }}
+      <button matChipRemove>
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip>
   </mat-chip-list>
 </div>
 
