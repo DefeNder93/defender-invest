@@ -34,7 +34,7 @@ export class DateInputsComponent implements OnInit, OnDestroy {
       takeUntil(this.onDestroy$)
     ).subscribe(() => this.form.valid && this.update.next(this.form.value));
     const params = this.paramsService.getParams();
-    params?.dates && this.form.patchValue(params.dates, {emitEvent: false});
+    params?.dates && this.form.patchValue(params.dates);
   }
 
   ngOnDestroy(): void {

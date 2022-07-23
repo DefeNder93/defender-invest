@@ -6,26 +6,10 @@ import statistics
 import copy
 # TODO old version, rework
 class ConfigBacktester:
-    def init(self):
+    def init(self, dates, spreads, settings):
         self.sma_len = 9
         self.std_multiplier_buy = 0.001
         self.std_multiplier_sell = 0.001
-
-        # params from API start
-        spread1 = {}
-        spread1["leg1"] = "GOQ"
-        spread1["leg2"] = "BCN"
-        spread1["leg1_price_multiplier"] = 1  # TODO add to FE or use %?
-        spread1["leg2_price_multiplier"] = 10
-        spreads = []
-        spreads.append(spread1)
-
-        dates = {}
-        dates["startDate"] = "2000-08-13"
-        dates["endDate"] = "2000-08-12"
-        dates["firstYear"] = 1994
-        dates["lastYear"] = 2021
-        # params from API end
 
         self.spreads = spreads
 
@@ -271,9 +255,3 @@ class ConfigBacktester:
             if slots[i]["leg1"] == leg1 and slots[i]["leg2"] == leg2:
                 return slots[i]
         return None
-
-algo = ConfigBacktester()
-algo.init()
-results = algo.run()
-algo.analyze_results(results)
-print('Finished')

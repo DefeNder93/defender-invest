@@ -26,12 +26,4 @@ export class SpreadsComponent {
     });
   }
 
-  launchDev = () => {
-    this.api.getChartDataDev().subscribe((r) => {
-      // console.log('launchDev', r.spreads[0].data[0]);
-      // console.log('launchDev2', r.spreads[1].data[0]);
-      this.spreads$.next(r.spreads);
-    });
-  }
-
 }

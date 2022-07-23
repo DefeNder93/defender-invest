@@ -28,7 +28,7 @@ export class SettingsInputsComponent implements OnInit, OnDestroy {
       takeUntil(this.onDestroy$)
     ).subscribe(() => this.form.valid && this.update.next(this.form.value));
     const params = this.paramsService.getParams();
-    params?.settings && this.form.patchValue(params.settings, {emitEvent: false});
+    params?.settings && this.form.patchValue(params.settings);
   }
 
   ngOnDestroy(): void {
