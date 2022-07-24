@@ -199,7 +199,6 @@ export class CloseChartComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     !!changes.spreads.currentValue && !!changes.spreads.currentValue.length && this.update(changes.spreads.currentValue);
-    !!changes.spreads.currentValue && console.log('currnet spread', changes.spreads.currentValue);
   }
 
 }

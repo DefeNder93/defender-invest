@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SpreadDates } from '../../../../shared/models/spread-params.model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ParamsService } from '../../../../shared/services/params.service';
+import { SpreadParamsService } from '../../../../shared/services/spread-params.service';
 
 @Component({
   selector: 'app-date-inputs',
@@ -24,7 +24,7 @@ export class DateInputsComponent implements OnInit, OnDestroy {
 
   private onDestroy$: Subject<void> = new Subject();
 
-  constructor(protected fb: FormBuilder, private paramsService: ParamsService) { }
+  constructor(protected fb: FormBuilder, private paramsService: SpreadParamsService) { }
 
   ngOnInit(): void {
     for (let i = 1990; i <= 2021; i++) {
@@ -33,7 +33,7 @@ export class DateInputsComponent implements OnInit, OnDestroy {
     this.form.valueChanges.pipe(
       takeUntil(this.onDestroy$)
     ).subscribe(() => this.form.valid && this.update.next(this.form.value));
-    const params = this.paramsService.getParams();
+    const params = this.paramsService.getSpreadParams();
     params?.dates && this.form.patchValue(params.dates);
   }
 

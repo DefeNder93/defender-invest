@@ -4,7 +4,7 @@ import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Spread } from '../../../shared/models/spread.model';
 import * as moment from 'moment';
-import { ParamsService } from '../../../shared/services/params.service';
+import { SpreadParamsService } from '../../../shared/services/spread-params.service';
 
 @Component({
   selector: 'app-controls',
@@ -13,7 +13,7 @@ import { ParamsService } from '../../../shared/services/params.service';
 })
 export class ControlsComponent {
 
-  constructor(private paramsService: ParamsService) {
+  constructor(private paramsService: SpreadParamsService) {
   }
 
   dates$ = new BehaviorSubject<SpreadDates | null>(null);
@@ -57,7 +57,7 @@ export class ControlsComponent {
   }
 
   private saveParams = () => {
-    this.paramsService.saveParams({
+    this.paramsService.saveSpreadParams({
       dates: this.dates$.value,
       spreads: this.spreads$.value,
       settings: this.settings$.value

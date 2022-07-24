@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SpreadSettings } from '../../../../shared/models/spread-params.model';
-import { ParamsService } from '../../../../shared/services/params.service';
+import { SpreadParamsService } from '../../../../shared/services/spread-params.service';
 
 @Component({
   selector: 'app-settings-inputs',
@@ -21,13 +21,13 @@ export class SettingsInputsComponent implements OnInit, OnDestroy {
 
   private onDestroy$: Subject<void> = new Subject();
 
-  constructor(protected fb: FormBuilder, private paramsService: ParamsService) { }
+  constructor(protected fb: FormBuilder, private paramsService: SpreadParamsService) { }
 
   ngOnInit(): void {
     this.form.valueChanges.pipe(
       takeUntil(this.onDestroy$)
     ).subscribe(() => this.form.valid && this.update.next(this.form.value));
-    const params = this.paramsService.getParams();
+    const params = this.paramsService.getSpreadParams();
     params?.settings && this.form.patchValue(params.settings);
   }
 
