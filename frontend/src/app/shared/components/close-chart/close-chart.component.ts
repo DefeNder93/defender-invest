@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ChardSpread } from '../../../spreads/shared/models/spread-response.model';
+import { ChardSpread, FEChardSpread } from '../../../spreads/shared/models/spread-response.model';
 // TODO proper import
 declare const d3: any;
 declare const techan: any;
@@ -11,7 +11,7 @@ declare const techan: any;
 })
 export class CloseChartComponent implements OnInit, OnChanges {
 
-  @Input() spreads: ChardSpread[] | null = null;
+  @Input() spreads: FEChardSpread[] | null = null;
 
   // TODO horizontal support lines ( not movable ) http://bl.ocks.org/andredumas/10194a84a3e46fe127d4
 
@@ -60,7 +60,7 @@ export class CloseChartComponent implements OnInit, OnChanges {
     if (!!spreads) {
       const colors = ['orange', 'pink', 'red', 'blue'];
       let i = 0;
-      spreads.forEach((e: any) => loadApiData(e.data[0], svg, ++i + '', colors.pop() || 'green'));
+      spreads.forEach((e: any) => loadApiData(e.data, svg, ++i + '', colors.pop() || 'green'));
     } else {
       loadCsvData('/assets/data.csv', svg, '1', 'red');
       loadCsvData('/assets/data2.csv', svg, '2', 'blue');
@@ -140,7 +140,6 @@ export class CloseChartComponent implements OnInit, OnChanges {
     function loadApiData(data: [string, number][], svg: any, id: string, color: string) {
         const accessor = close.accessor();
 
-        console.log('loadApiData');
         const outData = data.slice(0, 200).map(function(d: [string, number]) {
           return {
             date: parseDateApi(d[0]),
@@ -200,6 +199,7 @@ export class CloseChartComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     !!changes.spreads.currentValue && !!changes.spreads.currentValue.length && this.update(changes.spreads.currentValue);
+    !!changes.spreads.currentValue && console.log('currnet spread', changes.spreads.currentValue);
   }
 
 }

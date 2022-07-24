@@ -23,8 +23,9 @@ def hello_world():
     algo.analyze_results(results)
     print('Finished')
 
+    data = algo.get_fe_data()
     return {
-        "test": "11"
+        "data": data
     }
 
 # local storage for test: di-spreads-params => {"dates":{"startDate":"2022-08-12T21:00:00.000Z","endDate":"2022-08-11T21:00:00.000Z","firstYear":1994,"lastYear":2021},"spreads":[{"leg1":"GOQ","leg2":"BCN","leg1_price_multiplier":1,"leg2_price_multiplier":10}],"settings":{"normalize":false,"percents":true,"smaLen":5}}

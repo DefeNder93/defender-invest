@@ -3,7 +3,7 @@ import { SpreadsService } from '../../shared/services/spreads.service';
 import { switchMap, take } from 'rxjs/operators';
 import { Api } from '../../shared/services/api.service';
 import { SpreadParams } from '../../shared/models/spread-params.model';
-import { ChardSpread } from '../../shared/models/spread-response.model';
+import { ChardSpread, FEChardSpread } from '../../shared/models/spread-response.model';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -13,7 +13,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SpreadsComponent {
 
-  spreads$ = new BehaviorSubject<ChardSpread[]>([]);
+  spreads$ = new BehaviorSubject<FEChardSpread[]>([]);
 
   constructor(private spreadsService: SpreadsService, private api: Api) { }
 
@@ -22,7 +22,8 @@ export class SpreadsComponent {
       switchMap((spreads) => this.api.getChartData(params)),
       take(1)
     ).subscribe((r) => {
-      console.log('launch', r);
+      const s = [{data: r.data[0].spreads[0].closes.map((close, i) => [r.data[0].spreads[0].dates[i], close])}];
+      this.spreads$.next(s as FEChardSpread[]);
     });
   }
 

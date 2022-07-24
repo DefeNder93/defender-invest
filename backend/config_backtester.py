@@ -23,6 +23,24 @@ class ConfigBacktester:
         self.data = self.fill_data()
         pass
 
+    def get_fe_data(self):
+        out = []
+        for i in range(0, len(self.data)):
+            year_data = {}
+            year_data["year"] = self.data[i]["year"]
+            year_data["spreads"] = []
+            for j in range(0, len(self.data[i]["spreads"])):
+                spread_data = {}
+                # spread_data["leg1_ticker"] = self.data[i]["spreads"][j]["leg1_ticker"]
+                # spread_data["leg1_data"] = self.data[i]["spreads"][j]["leg1_data"]
+                # spread_data["leg2_ticker"] = self.data[i]["spreads"][j]["leg2_ticker"]
+                # spread_data["leg2_data"] = self.data[i]["spreads"][j]["leg2_data"]
+                spread_data["closes"] = self.data[i]["spreads"][j]["closes"]
+                spread_data["dates"] = self.data[i]["spreads"][j]["dates"]
+                year_data["spreads"].append(spread_data)
+            out.append(year_data)
+        return out
+
     def fill_data(self):
         data = []
         for year in range(self.first_year, self.last_year + 1):
