@@ -4,9 +4,9 @@ import { SpreadParams } from '../models/spread-params.model';
 @Injectable({
   providedIn: 'root'
 })
-export class ParamsService {
-  saveParams = (params: SpreadParams) => {
-    const saved = this.getParams();
+export class SpreadParamsService {
+  saveSpreadParams = (params: SpreadParams) => {
+    const saved = this.getSpreadParams();
     const toSave = {
       dates: params.dates || saved?.dates || null,
       spreads: params.spreads || saved?.spreads || null,
@@ -15,7 +15,7 @@ export class ParamsService {
     localStorage.setItem('di-spreads-params', JSON.stringify(toSave));
   }
 
-  getParams = (): SpreadParams | null => {
+  getSpreadParams = (): SpreadParams | null => {
     const data = localStorage.getItem('di-spreads-params');
     return data ? JSON.parse(data) as SpreadParams : null;
   }
