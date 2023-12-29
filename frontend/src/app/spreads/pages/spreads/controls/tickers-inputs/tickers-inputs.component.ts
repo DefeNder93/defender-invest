@@ -4,7 +4,6 @@ import { combineLatest, Observable, Subject } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';
 import { SpreadsService } from '../../../../shared/services/spreads.service';
 import { Spread } from '../../../../shared/models/spread.model';
-import { Api } from '../../../../shared/services/api.service';
 
 @Component({
   selector: 'app-tickers-inputs',
@@ -16,6 +15,8 @@ export class TickersInputsComponent implements OnInit {
 
   leg1Control = new FormControl<string>('');
   leg2Control = new FormControl<string>('');
+  leg1PriceMultiplierControl = new FormControl<number>(1);
+  leg2PriceMultiplierControl = new FormControl<number>(1);
   filteredLeg1Items!: Observable<string[]>;
   filteredLeg2Items!: Observable<string[]>;
   spreads$: Observable<Spread[]> = this.spreadsService.getSpreads();
@@ -23,7 +24,7 @@ export class TickersInputsComponent implements OnInit {
 
   private onDestroy$: Subject<void> = new Subject();
 
-  constructor(private spreadsService: SpreadsService, private api: Api) {
+  constructor(private spreadsService: SpreadsService) {
   }
 
   ngOnInit() {
@@ -45,8 +46,16 @@ export class TickersInputsComponent implements OnInit {
 
   add = () => {
     this.leg1Control.value && this.leg2Control.value &&
-      this.spreadsService.addSpread({leg1: this.leg1Control.value, leg2:  this.leg2Control.value});
+      this.spreadsService.addSpread(
+        {
+          leg1: this.leg1Control.value,
+          leg2:  this.leg2Control.value,
+          leg1_price_multiplier: this.leg1PriceMultiplierControl.value || 1,
+          leg2_price_multiplier: this.leg2PriceMultiplierControl.value || 1
+        });
   }
+
+  remove = (spread: Spread) => this.spreadsService.removeSpread(spread);
 
   private _filter(tickers: string[], value: string): string[] {
     const filterValue = value.toLowerCase();

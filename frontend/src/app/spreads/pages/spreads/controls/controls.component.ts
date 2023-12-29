@@ -3,6 +3,8 @@ import { SpreadDates, SpreadParams, SpreadSettings } from '../../../shared/model
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Spread } from '../../../shared/models/spread.model';
+import * as moment from 'moment';
+import { SpreadParamsService } from '../../../shared/services/spread-params.service';
 
 @Component({
   selector: 'app-controls',
@@ -10,6 +12,9 @@ import { Spread } from '../../../shared/models/spread.model';
   styleUrls: ['./controls.component.scss']
 })
 export class ControlsComponent {
+
+  constructor(private paramsService: SpreadParamsService) {
+  }
 
   dates$ = new BehaviorSubject<SpreadDates | null>(null);
   spreads$ = new BehaviorSubject<Spread[] | null>(null);
@@ -26,10 +31,37 @@ export class ControlsComponent {
       return;
     }
     this.launch.next({
-      dates: this.dates$.value,
+      dates: {
+        ...this.dates$.value,
+        startDate: moment(this.dates$.value.startDate).format('YYYY-MM-DD'),
+        endDate: moment(this.dates$.value.endDate).format('YYYY-MM-DD')
+      },
       spreads: this.spreads$.value,
       settings: this.settings$.value
     });
+  }
+
+  updateSettings = (settings: SpreadSettings) => {
+    this.settings$.next(settings);
+    this.saveParams();
+  }
+
+  updateDates = (dates: SpreadDates) => {
+    this.dates$.next(dates);
+    this.saveParams();
+  }
+
+  updateSpreads = (spreads: Spread[]) => {
+    this.spreads$.next(spreads);
+    this.saveParams();
+  }
+
+  private saveParams = () => {
+    this.paramsService.saveSpreadParams({
+      dates: this.dates$.value,
+      spreads: this.spreads$.value,
+      settings: this.settings$.value
+    })
   }
 
 }

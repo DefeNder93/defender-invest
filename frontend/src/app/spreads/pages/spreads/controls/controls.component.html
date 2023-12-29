@@ -1,8 +1,8 @@
-<app-date-inputs (update)="dates$.next($event)"></app-date-inputs>
+<app-date-inputs (update)="updateDates($event)"></app-date-inputs>
 
-<app-tickers-inputs (update)="spreads$.next($event)"></app-tickers-inputs>
+<app-tickers-inputs (update)="updateSpreads($event)"></app-tickers-inputs>
 
-<app-settings-inputs (update)="settings$.next($event)"></app-settings-inputs>
+<app-settings-inputs (update)="updateSettings($event)"></app-settings-inputs>
 
 <div>
   <button [disabled]="!(launchEnabled$ | async)" (click)="runLaunch()" mat-raised-button color="primary">Launch</button>

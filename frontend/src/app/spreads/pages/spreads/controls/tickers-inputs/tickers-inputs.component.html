@@ -15,6 +15,11 @@
       </mat-autocomplete>
     </mat-form-field>
 
+    <mat-form-field class="example-form-field">
+      <mat-label>Leg 1 price multiplier </mat-label>
+      <input [formControl]="leg1PriceMultiplierControl" matInput type="number">
+    </mat-form-field>
+
     <mat-form-field appearance="fill">
       <mat-label>Leg 2</mat-label>
       <input type="text"
@@ -29,13 +34,23 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
+
+    <mat-form-field class="example-form-field">
+      <mat-label>Leg 2 price multiplier </mat-label>
+      <input [formControl]="leg2PriceMultiplierControl" matInput type="number">
+    </mat-form-field>
   </form>
 
   <button (click)="add()" mat-button mat-raised-button>Add</button>
 </div>
 <div>
   <mat-chip-list aria-label="Spreads">
-    <mat-chip *ngFor="let spread of spreads$ | async">{{ spread.leg1 }}{{ spread.leg2 }}</mat-chip>
+    <mat-chip *ngFor="let spread of spreads$ | async" (removed)="remove(spread)">
+      {{ spread.leg1 }}{{ spread.leg2 }}
+      <button matChipRemove>
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip>
   </mat-chip-list>
 </div>
 

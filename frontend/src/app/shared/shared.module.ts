@@ -14,6 +14,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatChipsModule} from '@angular/material/chips';
+import { ChartParamsComponent } from './components/close-chart/chart-params/chart-params.component';
 
 const MATERIAL_MODULES = [
   MatInputModule,
@@ -37,7 +38,8 @@ const COMMON_MODULES = [
 
 const COMPONENTS = [
   MenuComponent,
-  CloseChartComponent
+  CloseChartComponent,
+  ChartParamsComponent
 ];
 
 @NgModule({
