@@ -9,10 +9,10 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
-import {UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
-import {RebalanceParams} from "../../shared/models/rebalance-ticker.model";
-import { BehaviorSubject, Subject } from "rxjs";
-import {debounceTime, takeUntil} from "rxjs/operators";
+import {UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
+import {RebalanceParams} from '../../shared/models/rebalance-ticker.model';
+import { Subject } from 'rxjs';
+import {debounceTime, takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-rebalance-common-params',
@@ -25,16 +25,12 @@ export class RebalanceCommonParamsComponent implements OnInit, OnDestroy, OnChan
   private onDestroy$: Subject<void> = new Subject();
 
   public form: UntypedFormGroup = this.fb.group({
-    totalInvestedAmount: [null],
-    weeklyAddition: [null],
+    totalAmount: [null],
+    cash: [null],
+    invested: [null],
     multiplier: [null],
-    activeInvestedAmount: [null],
-    currentWeeklyMultiplied: [null],
     rebalanceAmount: [null]
   });
-
-  public weeklyAdded$ = new BehaviorSubject(false);
-  public weeklyAddedToRebalance$ = new BehaviorSubject(false);
 
   @Output() paramsUpdate = new EventEmitter<RebalanceParams>();
   @Input() initialParams: RebalanceParams | null = null;
@@ -57,20 +53,19 @@ export class RebalanceCommonParamsComponent implements OnInit, OnDestroy, OnChan
     this.onDestroy$.complete();
   }
 
-  addWeekly = () => {
-    this.weeklyAdded$.next(true);
-    this.form.patchValue({activeInvestedAmount: this.form.value.activeInvestedAmount + this.form.value.weeklyAddition})
-    this.form.patchValue({currentWeeklyMultiplied: Math.round(this.form.value.weeklyAddition * this.form.value.multiplier)})
+  distractCash = () => {
+    const {totalAmount, cash} = this.form.value;
+    this.form.controls.invested.patchValue(totalAmount - cash);
   }
 
-  addWeeklyToRebalance = () => {
-    this.weeklyAddedToRebalance$.next(true);
-    this.form.patchValue({rebalanceAmount: this.form.value.rebalanceAmount + this.form.value.currentWeeklyMultiplied, currentWeeklyMultiplied: null})
+  calculateRebalanceAmount = () => {
+    const {invested, multiplier} = this.form.value;
+    this.form.controls.rebalanceAmount.patchValue(Math.round(invested * multiplier));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     changes.rebalanceAmount?.currentValue &&
-      this.form.patchValue({rebalanceAmount: changes.rebalanceAmount.currentValue})
+      this.form.patchValue({rebalanceAmount: changes.rebalanceAmount.currentValue});
   }
 
 }
