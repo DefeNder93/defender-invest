@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import {UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {RebalanceParams} from '../../shared/models/rebalance-ticker.model';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import {debounceTime, takeUntil} from 'rxjs/operators';
 
 @Component({
@@ -32,9 +32,6 @@ export class RebalanceCommonParamsComponent implements OnInit, OnDestroy, OnChan
     rebalanceAmount: [null]
   });
 
-  public weeklyAdded$ = new BehaviorSubject(false);
-  public weeklyAddedToRebalance$ = new BehaviorSubject(false);
-
   @Output() paramsUpdate = new EventEmitter<RebalanceParams>();
   @Input() initialParams: RebalanceParams | null = null;
   @Input() rebalanceAmount: number | null = null;
@@ -54,17 +51,6 @@ export class RebalanceCommonParamsComponent implements OnInit, OnDestroy, OnChan
   ngOnDestroy() {
     this.onDestroy$.next();
     this.onDestroy$.complete();
-  }
-
-  addWeekly = () => {
-    this.weeklyAdded$.next(true);
-    this.form.patchValue({activeInvestedAmount: this.form.value.activeInvestedAmount + this.form.value.weeklyAddition});
-    this.form.patchValue({currentWeeklyMultiplied: Math.round(this.form.value.weeklyAddition * this.form.value.multiplier)});
-  }
-
-  addWeeklyToRebalance = () => {
-    this.weeklyAddedToRebalance$.next(true);
-    this.form.patchValue({rebalanceAmount: this.form.value.rebalanceAmount + this.form.value.currentWeeklyMultiplied, currentWeeklyMultiplied: null});
   }
 
   distractCash = () => {
