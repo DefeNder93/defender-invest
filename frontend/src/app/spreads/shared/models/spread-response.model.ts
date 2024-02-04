@@ -4,7 +4,7 @@ export interface ChardData {
 
 export interface YearData {
   year: string;
-  spreads: ChardSpread[]
+  spreads: ChardSpread[];
 }
 
 export interface ChardSpread {
@@ -13,5 +13,5 @@ export interface ChardSpread {
 }
 
 export interface FEChardSpread {
-  data: [string, number][];  // date, price
+  data: [string, number][]; // date, price
 }

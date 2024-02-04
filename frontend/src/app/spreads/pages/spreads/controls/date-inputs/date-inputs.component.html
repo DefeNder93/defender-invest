@@ -1,14 +1,14 @@
 <form [formGroup]="form">
   <mat-form-field appearance="fill">
     <mat-label>Start date</mat-label>
-    <input formControlName="startDate" matInput [matDatepicker]="picker1">
+    <input formControlName="startDate" matInput [matDatepicker]="picker1" />
     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
     <mat-datepicker #picker1></mat-datepicker>
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>End date</mat-label>
-    <input formControlName="endDate" matInput [matDatepicker]="picker2">
+    <input formControlName="endDate" matInput [matDatepicker]="picker2" />
     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
     <mat-datepicker #picker2></mat-datepicker>
   </mat-form-field>
@@ -19,7 +19,7 @@
     <mat-label>First year</mat-label>
     <mat-select formControlName="firstYear">
       <mat-option *ngFor="let year of years" [value]="year">
-        {{year}}
+        {{ year }}
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -28,7 +28,7 @@
     <mat-label>Last year</mat-label>
     <mat-select formControlName="lastYear">
       <mat-option *ngFor="let year of years" [value]="year">
-        {{year}}
+        {{ year }}
       </mat-option>
     </mat-select>
   </mat-form-field>

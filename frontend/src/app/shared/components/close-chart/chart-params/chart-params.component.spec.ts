@@ -8,9 +8,8 @@ describe('ChartParamsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChartParamsComponent ]
-    })
-    .compileComponents();
+      declarations: [ChartParamsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ChartParamsComponent);
     component = fixture.componentInstance;

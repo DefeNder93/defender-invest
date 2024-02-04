@@ -9,19 +9,14 @@ import { DateInputsComponent } from './pages/spreads/controls/date-inputs/date-i
 import { TickersInputsComponent } from './pages/spreads/controls/tickers-inputs/tickers-inputs.component';
 import { SettingsInputsComponent } from './pages/spreads/controls/settings-inputs/settings-inputs.component';
 
-
 @NgModule({
   declarations: [
     SpreadsComponent,
     ControlsComponent,
     DateInputsComponent,
     TickersInputsComponent,
-    SettingsInputsComponent
+    SettingsInputsComponent,
   ],
-  imports: [
-    CommonModule,
-    SpreadsRoutingModule,
-    SharedModule
-  ]
+  imports: [CommonModule, SpreadsRoutingModule, SharedModule],
 })
-export class SpreadsModule { }
+export class SpreadsModule {}
