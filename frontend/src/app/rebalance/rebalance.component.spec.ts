@@ -8,9 +8,8 @@ describe('RebalanceComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RebalanceComponent ]
-    })
-    .compileComponents();
+      declarations: [RebalanceComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

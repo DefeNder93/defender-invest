@@ -4,11 +4,20 @@
   <button (click)="applyComparisonPrices()" type="button">Apply comparison prices</button>
 </div>
 
-<app-rebalance-common-params [rebalanceAmount]="rebalanceAmount$ | async" [initialParams]="rebalanceParams"
-                             (paramsUpdate)="updateParams($event)"></app-rebalance-common-params>
+<app-rebalance-common-params
+  [rebalanceAmount]="rebalanceAmount$ | async"
+  [initialParams]="rebalanceParams"
+  (paramsUpdate)="updateParams($event)"
+></app-rebalance-common-params>
 
-<app-rebalance-ticker [results]="rebalanceResults$ | async" [index]="i" (removeTicker)="removeTicker($event)"
-                      (changeTicker)="changeTicker()" [form]="form" *ngFor="let form of tickersForm.controls; let i = index"></app-rebalance-ticker>
+<app-rebalance-ticker
+  [results]="rebalanceResults$ | async"
+  [index]="i"
+  (removeTicker)="removeTicker($event)"
+  (changeTicker)="changeTicker()"
+  [form]="form"
+  *ngFor="let form of tickersForm.controls; let i = index"
+></app-rebalance-ticker>
 
 <button (click)="rebalance()" type="button">Rebalance</button>
 
@@ -20,8 +29,11 @@
 
 <div>Rebalance tasks:</div>
 
-<app-rebalance-results (toggleDone)="toggleDone($event)" (removeTask)="removeTask($event)"
-                       [rebalanceResults]="rebalanceResults$ | async"></app-rebalance-results>
+<app-rebalance-results
+  (toggleDone)="toggleDone($event)"
+  (removeTask)="removeTask($event)"
+  [rebalanceResults]="rebalanceResults$ | async"
+></app-rebalance-results>
 
 <!--  <glp-reward-->
 <!--    *ngFor="let control of form.controls; let i = index"-->
@@ -30,4 +42,3 @@
 <!--    [deleteAllowed]="true"-->
 <!--    (removeItem)="removeItem($event)">-->
 <!--  </glp-reward>-->
-

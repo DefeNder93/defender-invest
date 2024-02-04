@@ -8,9 +8,8 @@ describe('RebalanceTickerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RebalanceTickerComponent ]
-    })
-    .compileComponents();
+      declarations: [RebalanceTickerComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

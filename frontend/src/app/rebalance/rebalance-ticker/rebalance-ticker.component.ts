@@ -1,17 +1,24 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {AbstractControl, UntypedFormGroup} from "@angular/forms";
-import {Subject} from "rxjs";
-import {RebalanceResult} from "../../shared/models/rebalance-ticker.model";
-import {debounceTime, distinctUntilChanged, takeUntil} from "rxjs/operators";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { AbstractControl, UntypedFormGroup } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { RebalanceResult } from '../../shared/models/rebalance-ticker.model';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-rebalance-ticker',
   templateUrl: './rebalance-ticker.component.html',
   styleUrls: ['./rebalance-ticker.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RebalanceTickerComponent implements OnInit, OnDestroy {
-
   @Input() form: AbstractControl = new UntypedFormGroup({});
   @Input() index: number = 0;
   @Input() results: RebalanceResult[] | null = [];
@@ -21,15 +28,16 @@ export class RebalanceTickerComponent implements OnInit, OnDestroy {
 
   private onDestroy$: Subject<void> = new Subject();
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.form.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
-    ).pipe(
-      takeUntil(this.onDestroy$)
-    ).subscribe((value) => this.changeTicker.emit(value));
+    this.form.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+      )
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((value) => this.changeTicker.emit(value));
   }
 
   ngOnDestroy() {
@@ -39,8 +47,8 @@ export class RebalanceTickerComponent implements OnInit, OnDestroy {
 
   getFb = () => this.form as UntypedFormGroup;
 
-  getAdditionalAmount = () => this.results ? this.results.find((e) => e.name === this.form.value.name)?.additionalAmount : 0;
+  getAdditionalAmount = () =>
+    this.results ? this.results.find((e) => e.name === this.form.value.name)?.additionalAmount : 0;
 
   abs = (value: number) => Math.abs(value);
-
 }
