@@ -10,8 +10,6 @@ import { PercentCalcParams } from './shared/models/percent-calc.model';
   providedIn: 'root',
 })
 export class StorageService {
-  constructor() {}
-
   saveRebalanceTickers = (tickers: RebalanceTicker[]) => {
     localStorage.setItem('di-rebalance-tickers', JSON.stringify(tickers));
   };
@@ -25,9 +23,9 @@ export class StorageService {
     localStorage.setItem('di-rebalance-params', JSON.stringify(params));
   };
 
-  getRebalanceParams = (): RebalanceParams => {
+  getRebalanceParams = (): RebalanceParams | null => {
     const data = localStorage.getItem('di-rebalance-params');
-    return (data ? JSON.parse(data) : []) as RebalanceParams;
+    return data ? (JSON.parse(data) as RebalanceParams) : null;
   };
 
   saveRebalanceResults = (results: RebalanceResult[]) => {

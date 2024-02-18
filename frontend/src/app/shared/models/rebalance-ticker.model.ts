@@ -3,15 +3,14 @@ export interface RebalanceTicker {
   weight: number;
   currentAmount: number;
   currentPrice: number;
-  comparisonPrice: number;
+  comparisonPrice: number | null;
 }
 
 export interface RebalanceParams {
-  totalInvestedAmount: number;
-  weeklyAddition: number;
+  totalAmount: number;
+  cash: number;
   multiplier: number;
-  activeInvestedAmount: number;
-  currentWeeklyMultiplied: number;
+  invested: number;
   rebalanceAmount: number;
 }
 

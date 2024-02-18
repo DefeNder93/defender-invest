@@ -8,6 +8,7 @@ import {
 } from '../shared/models/rebalance-ticker.model';
 import { BehaviorSubject } from 'rxjs';
 import { StorageService } from '../storage.service';
+import { InitialDataService } from '../initial-data.service';
 
 @Component({
   selector: 'app-rebalance',
@@ -16,34 +17,20 @@ import { StorageService } from '../storage.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RebalanceComponent implements OnInit {
-  rebalanceParams: RebalanceParams | null = this.storageService.getRebalanceParams();
+  rebalanceParams: RebalanceParams | null =
+    this.storageService.getRebalanceParams() || this.initialDataService.getRebalanceParams();
   rebalanceResults$ = new BehaviorSubject<RebalanceResult[]>(
     this.storageService.getRebalanceResults(),
   );
   rebalanceAmount$ = new BehaviorSubject<number | null>(null);
 
-  tickersForm: UntypedFormArray = this.fb.array(
-    this.getTickersForm(),
-    //[
-    // this.fb.group({
-    //   name: 'XLP',
-    //   weight: 0.3,
-    //   currentAmount: 5,
-    //   currentPrice: 400,
-    // }),
-    // this.fb.group({
-    //   name: 'XLU',
-    //   weight: 0.4,
-    //   currentAmount: 6,
-    //   currentPrice: 1000,
-    // })
-    //],
-  );
+  tickersForm: UntypedFormArray = this.fb.array(this.getTickersForm());
 
   constructor(
     private fb: UntypedFormBuilder,
     private rebalanceService: RebalanceService,
     private storageService: StorageService,
+    private initialDataService: InitialDataService,
   ) {}
 
   ngOnInit() {}
@@ -71,7 +58,7 @@ export class RebalanceComponent implements OnInit {
   };
 
   getTickersForm() {
-    const tickers = this.storageService.getRebalanceTickers();
+    const tickers = this.getRebalanceTickers();
     return tickers.map((e) => this.fb.group(e));
   }
 
@@ -146,4 +133,12 @@ export class RebalanceComponent implements OnInit {
     this.storageService.saveRebalanceResults(results);
     return results;
   };
+
+  private getRebalanceTickers() {
+    const tickers = this.storageService.getRebalanceTickers();
+    if (!tickers.length) {
+      return this.initialDataService.getRebalanceTickers();
+    }
+    return tickers;
+  }
 }
