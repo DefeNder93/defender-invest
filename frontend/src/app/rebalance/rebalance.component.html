@@ -1,7 +1,7 @@
-<div style="padding-top: 15px">
-  <button (click)="recalculateRebalanceAmount()" type="button">Recalculate rebalance amount</button>
+<div class="flex-row">
+  <button (click)="recalculateRebalanceAmount()" type="button" class="btn-primary title-m">Recalculate rebalance amount</button>
 
-  <button (click)="applyComparisonPrices()" type="button">Apply comparison prices</button>
+  <button (click)="applyComparisonPrices()" type="button" class="btn-primary title-m">Apply comparison prices</button>
 </div>
 
 <app-rebalance-common-params [rebalanceAmount]="rebalanceAmount$ | async" [initialParams]="rebalanceParams"
@@ -10,11 +10,11 @@
 <app-rebalance-ticker [results]="rebalanceResults$ | async" [index]="i" (removeTicker)="removeTicker($event)"
                       (changeTicker)="changeTicker()" [form]="form" *ngFor="let form of tickersForm.controls; let i = index"></app-rebalance-ticker>
 
-<button (click)="rebalance()" type="button">Rebalance</button>
+<button (click)="rebalance()" type="button" class="btn-primary title-m">Rebalance</button>
 
-<button (click)="applyResults()" type="button">Apply Results</button>
+<button (click)="applyResults()" type="button" class="btn-primary title-m">Apply Results</button>
 
-<button style="margin-left: 100px" (click)="addTicker()" type="button">Add ticker</button>
+<button style="margin-left: 100px" (click)="addTicker()" type="button" class="btn-primary title-m">Add ticker</button>
 
 <!--<button (click)="resetResults()" type="button">Reset</button>-->
 

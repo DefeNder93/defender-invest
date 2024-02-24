@@ -1,0 +1,13 @@
+:host {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+}
+.menu-link {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: var(--base-text);
+  &__active {
+    color: var(--red-accent);
+  }
+}
