@@ -3,25 +3,24 @@ export interface RebalanceTicker {
   weight: number;
   currentAmount: number;
   currentPrice: number;
-  comparisonPrice: number;
+  comparisonPrice: number | null;
 }
 
 export interface RebalanceParams {
-  totalInvestedAmount: number;
-  weeklyAddition: number;
+  totalAmount: number;
+  cash: number;
   multiplier: number;
-  activeInvestedAmount: number;
-  currentWeeklyMultiplied: number;
+  invested: number;
   rebalanceAmount: number;
 }
 
 export interface RebalanceResult {
   name: string;
   additionalAmount: number;
-  done: boolean;  // if rebalance for this ticker was completed
+  done: boolean; // if rebalance for this ticker was completed
 }
 
 export interface RebalanceResultDone {
   name: string;
-  done: boolean;  // if rebalance for this ticker was completed
+  done: boolean; // if rebalance for this ticker was completed
 }

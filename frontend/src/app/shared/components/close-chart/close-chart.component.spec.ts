@@ -8,9 +8,8 @@ describe('CloseChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CloseChartComponent ]
-    })
-    .compileComponents();
+      declarations: [CloseChartComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CloseChartComponent);
     component = fixture.componentInstance;

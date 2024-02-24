@@ -8,7 +8,7 @@ import { SpreadParamsService } from '../../../../shared/services/spread-params.s
 @Component({
   selector: 'app-settings-inputs',
   templateUrl: './settings-inputs.component.html',
-  styleUrls: ['./settings-inputs.component.scss']
+  styleUrls: ['./settings-inputs.component.scss'],
 })
 export class SettingsInputsComponent implements OnInit, OnDestroy {
   @Output() update = new EventEmitter<SpreadSettings>();
@@ -21,12 +21,15 @@ export class SettingsInputsComponent implements OnInit, OnDestroy {
 
   private onDestroy$: Subject<void> = new Subject();
 
-  constructor(protected fb: FormBuilder, private paramsService: SpreadParamsService) { }
+  constructor(
+    protected fb: FormBuilder,
+    private paramsService: SpreadParamsService,
+  ) {}
 
   ngOnInit(): void {
-    this.form.valueChanges.pipe(
-      takeUntil(this.onDestroy$)
-    ).subscribe(() => this.form.valid && this.update.next(this.form.value));
+    this.form.valueChanges
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(() => this.form.valid && this.update.next(this.form.value));
     const params = this.paramsService.getSpreadParams();
     params?.settings && this.form.patchValue(params.settings);
   }

@@ -8,9 +8,8 @@ describe('PercentCalculationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PercentCalculationComponent ]
-    })
-    .compileComponents();
+      declarations: [PercentCalculationComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

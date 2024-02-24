@@ -6,22 +6,29 @@ import { map, shareReplay } from 'rxjs/operators';
 import { SpreadParamsService } from './spread-params.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SpreadsService {
-  private spreads$ = new BehaviorSubject<Spread[]>(this.paramsService.getSpreadParams()?.spreads || []);
+  private spreads$ = new BehaviorSubject<Spread[]>(
+    this.paramsService.getSpreadParams()?.spreads || [],
+  );
 
   tickers$: Observable<string[]> = this.api.getTickers().pipe(
     map((r) => r.tickers),
-    shareReplay(1)
+    shareReplay(1),
   );
 
-  constructor(private api: Api, private paramsService: SpreadParamsService) {
-  }
+  constructor(
+    private api: Api,
+    private paramsService: SpreadParamsService,
+  ) {}
 
   getSpreads = () => this.spreads$.asObservable();
 
   addSpread = (spread: Spread) => this.spreads$.next(this.spreads$.value.concat(spread));
 
-  removeSpread = (spread: Spread) => this.spreads$.next(this.spreads$.value.filter(e => e.leg1 + e.leg2 !== spread.leg1 + spread.leg2));
+  removeSpread = (spread: Spread) =>
+    this.spreads$.next(
+      this.spreads$.value.filter((e) => e.leg1 + e.leg2 !== spread.leg1 + spread.leg2),
+    );
 }

@@ -5,6 +5,12 @@
 <app-settings-inputs (update)="updateSettings($event)"></app-settings-inputs>
 
 <div>
-  <button [disabled]="!(launchEnabled$ | async)" (click)="runLaunch()" mat-raised-button color="primary">Launch</button>
+  <button
+    [disabled]="!(launchEnabled$ | async)"
+    (click)="runLaunch()"
+    mat-raised-button
+    color="primary"
+  >
+    Launch
+  </button>
 </div>
-

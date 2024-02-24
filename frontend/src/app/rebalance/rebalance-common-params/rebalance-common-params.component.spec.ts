@@ -8,9 +8,8 @@ describe('RebalanceCommonParamsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RebalanceCommonParamsComponent ]
-    })
-    .compileComponents();
+      declarations: [RebalanceCommonParamsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

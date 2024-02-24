@@ -8,7 +8,7 @@ import { SpreadParamsService } from '../../../../shared/services/spread-params.s
 @Component({
   selector: 'app-date-inputs',
   templateUrl: './date-inputs.component.html',
-  styleUrls: ['./date-inputs.component.scss']
+  styleUrls: ['./date-inputs.component.scss'],
 })
 export class DateInputsComponent implements OnInit, OnDestroy {
   @Output() update = new EventEmitter<SpreadDates>();
@@ -24,15 +24,18 @@ export class DateInputsComponent implements OnInit, OnDestroy {
 
   private onDestroy$: Subject<void> = new Subject();
 
-  constructor(protected fb: FormBuilder, private paramsService: SpreadParamsService) { }
+  constructor(
+    protected fb: FormBuilder,
+    private paramsService: SpreadParamsService,
+  ) {}
 
   ngOnInit(): void {
     for (let i = 1990; i <= 2021; i++) {
       this.years.push(i);
     }
-    this.form.valueChanges.pipe(
-      takeUntil(this.onDestroy$)
-    ).subscribe(() => this.form.valid && this.update.next(this.form.value));
+    this.form.valueChanges
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(() => this.form.valid && this.update.next(this.form.value));
     const params = this.paramsService.getSpreadParams();
     params?.dates && this.form.patchValue(params.dates);
   }
@@ -41,5 +44,4 @@ export class DateInputsComponent implements OnInit, OnDestroy {
     this.onDestroy$.next();
     this.onDestroy$.complete();
   }
-
 }
