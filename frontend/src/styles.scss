@@ -1,12 +1,100 @@
 /* You can add global styles to this file, and also import other style files */
 
-html,
-body {
-  height: 100%;
+:root {
+  --background: #d7cec7;
+  --base-text: #565656;
+  --red-accent: #76323f;
+  --tan-accent: #c09f80;
+  --font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.title-l {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.title-m {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.text-m {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.flex-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.example-form-field {
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+    .mat-form-field-flex {
+      background: var(--tan-accent);
+      border-radius: 4px 4px 0 0;
+      .mat-input-element {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        padding-left: 8px;
+        width: calc(100% - 16px);
+        caret-color: var(--red-accent);
+      }
+      .mat-form-field-label-wrapper {
+        .mat-form-field-label {
+          left: 8px;
+        }
+      }
+    }
+    .mat-form-field-underline {
+      background-color: var(--red-accent);
+      height: 2px;
+      bottom: 0;
+    }
+  }
+  &.mat-focused {
+    .mat-form-field-label {
+      color: var(--red-accent);
+    }
+    .mat-form-field-ripple {
+      background-color: var(--red-accent);
+    }
+  }
+}
+
+html, body { height: 100%; }
 body {
+  background: var(--background);
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: var(--font-family);
+}
+
+.btn-primary {
+  background: var(--red-accent);
+  border: none;
+  border-radius: 8px;
+  color: var(--background);
+  padding: 8px 12px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--red-accent);
+  border-radius: 8px;
+  color: var(--base-text);
+  padding: 7px 11px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 path.line {
