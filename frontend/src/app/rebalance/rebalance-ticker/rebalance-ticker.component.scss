@@ -1,0 +1,9 @@
+:host > div {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+:host ::ng-deep .mat-form-field-flex {
+  padding: 4px 0 0 0;
+}
