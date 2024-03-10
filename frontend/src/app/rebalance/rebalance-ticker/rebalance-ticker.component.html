@@ -32,7 +32,9 @@
 
   Current Value: {{ getFb().value.currentAmount * getFb().value.currentPrice | number: '2.0-0' }}
 
-  <button (click)="removeTicker.next(index)" type="button">Remove Ticker</button>
+  <button class="btn-primary title-m" (click)="removeTicker.next(index)" type="button">
+    Remove Ticker
+  </button>
 
   <ng-container *ngIf="getAdditionalAmount() as additionalAmount">
     {{ additionalAmount > 0 ? 'Buy' : 'Sell' }} {{ abs(additionalAmount) }}
