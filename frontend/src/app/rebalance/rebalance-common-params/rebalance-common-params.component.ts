@@ -21,7 +21,9 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RebalanceCommonParamsComponent implements OnInit, OnDestroy, OnChanges {
-  private onDestroy$: Subject<void> = new Subject();
+  @Output() paramsUpdate = new EventEmitter<RebalanceParams>();
+  @Input() initialParams: RebalanceParams | null = null;
+  @Input() rebalanceAmount: number | null = null;
 
   public form: UntypedFormGroup = this.fb.group({
     totalAmount: [null],
@@ -31,22 +33,24 @@ export class RebalanceCommonParamsComponent implements OnInit, OnDestroy, OnChan
     rebalanceAmount: [null],
   });
 
-  @Output() paramsUpdate = new EventEmitter<RebalanceParams>();
-  @Input() initialParams: RebalanceParams | null = null;
-  @Input() rebalanceAmount: number | null = null;
+  private onDestroy$: Subject<void> = new Subject();
 
   constructor(private fb: UntypedFormBuilder) {}
 
   ngOnInit() {
-    this.form.valueChanges
-      .pipe(debounceTime(300), takeUntil(this.onDestroy$))
-      .subscribe((value) => this.paramsUpdate.next(value));
-    this.initialParams && this.form.patchValue(this.initialParams);
+    this.emitParamsUpdateOnFormChange();
+    this.pathFormWithInitialParams();
   }
 
   ngOnDestroy() {
     this.onDestroy$.next();
     this.onDestroy$.complete();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.rebalanceAmount?.currentValue) {
+      this.form.patchValue({ rebalanceAmount: changes.rebalanceAmount.currentValue });
+    }
   }
 
   distractCash = () => {
@@ -59,8 +63,14 @@ export class RebalanceCommonParamsComponent implements OnInit, OnDestroy, OnChan
     this.form.controls.rebalanceAmount.patchValue(Math.round(invested * multiplier));
   };
 
-  ngOnChanges(changes: SimpleChanges): void {
-    changes.rebalanceAmount?.currentValue &&
-      this.form.patchValue({ rebalanceAmount: changes.rebalanceAmount.currentValue });
-  }
+  private pathFormWithInitialParams = () => {
+    if (this.initialParams) {
+      this.initialParams && this.form.patchValue(this.initialParams);
+    }
+  };
+
+  private emitParamsUpdateOnFormChange = () =>
+    this.form.valueChanges
+      .pipe(debounceTime(300), takeUntil(this.onDestroy$))
+      .subscribe((value) => this.paramsUpdate.next(value));
 }

@@ -16,7 +16,7 @@ import { InitialDataService } from '../initial-data.service';
   styleUrls: ['./rebalance.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RebalanceComponent implements OnInit {
+export class RebalanceComponent {
   rebalanceParams: RebalanceParams | null =
     this.storageService.getRebalanceParams() || this.initialDataService.getRebalanceParams();
   rebalanceResults$ = new BehaviorSubject<RebalanceResult[]>(
@@ -32,8 +32,6 @@ export class RebalanceComponent implements OnInit {
     private storageService: StorageService,
     private initialDataService: InitialDataService,
   ) {}
-
-  ngOnInit() {}
 
   addTicker = () => {
     this.tickersForm.push(

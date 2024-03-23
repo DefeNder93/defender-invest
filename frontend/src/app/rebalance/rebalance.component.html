@@ -29,8 +29,6 @@
 
 <button (click)="addTicker()" type="button" class="btn-primary title-m">Add ticker</button>
 
-<!--<button (click)="resetResults()" type="button">Reset</button>-->
-
 <div>Rebalance tasks:</div>
 
 <app-rebalance-results
@@ -38,11 +36,3 @@
   (removeTask)="removeTask($event)"
   [rebalanceResults]="rebalanceResults$ | async"
 ></app-rebalance-results>
-
-<!--  <glp-reward-->
-<!--    *ngFor="let control of form.controls; let i = index"-->
-<!--    [form]="control"-->
-<!--    [index]="i"-->
-<!--    [deleteAllowed]="true"-->
-<!--    (removeItem)="removeItem($event)">-->
-<!--  </glp-reward>-->

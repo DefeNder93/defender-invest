@@ -28,8 +28,6 @@ export class RebalanceTickerComponent implements OnInit, OnDestroy {
 
   private onDestroy$: Subject<void> = new Subject();
 
-  constructor() {}
-
   ngOnInit() {
     this.form.valueChanges
       .pipe(
